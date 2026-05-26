@@ -2851,6 +2851,9 @@ Object.assign(window, {
 /* Mapping: app-internal Kurz-Wording ⇄ ÜBERSICHT (volle Beschreibung). */
 
 function InfoScreen({ open, onClose }) {
+  const [expanded, setExpanded] = React.useState({});
+  const toggle = (id) => setExpanded(e => ({ ...e, [id]: !e[id] }));
+
   return (
     <div className={`info-overlay ${open ? 'open' : ''}`}>
       <header className="info-head">
@@ -2868,26 +2871,49 @@ function InfoScreen({ open, onClose }) {
           <p>Hier siehst du das Kurz-Wording aus der App neben dem vollen Wortlaut aus der ÜBERSICHT — und wieviel Punkte jede Aktivität gibt.</p>
         </section>
 
-        {ACTIVITY_GROUPS.map(grp => (
-          <section className="info-group" key={grp.id}>
-            <div className="info-group-head">
-              <CategoryDot color={grp.color} size={10} />
-              <span className="info-group-name">{grp.label}</span>
-              <span className="info-group-meta">{grp.perContact ? 'pro Kontakt' : 'einmal pro Tag'}</span>
-            </div>
-            <div className="info-cards">
-              {grp.items.map(a => (
-                <article className="info-card" key={a.id}>
-                  <div className="info-card-top">
-                    <span className="info-short">{a.short}</span>
-                    <span className="info-pts">{a.pts === 1 ? '1 Pkt' : `${a.pts} Pkte`}</span>
-                  </div>
-                  <div className="info-full">{a.label}</div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
+        {ACTIVITY_GROUPS.map(grp => {
+          const isOpen = !!expanded[grp.id];
+          return (
+            <section className="info-group" key={grp.id}>
+              <button
+                onClick={() => toggle(grp.id)}
+                aria-expanded={isOpen}
+                style={{
+                  width: '100%', background: 'transparent', border: 'none',
+                  padding: '4px 0', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center',
+                }}
+              >
+                <div className="info-group-head" style={{ flex: 1, marginBottom: 0, padding: '0 0 6px' }}>
+                  <CategoryDot color={grp.color} size={10} />
+                  <span className="info-group-name">{grp.label}</span>
+                  <span className="info-group-meta">{grp.perContact ? 'pro Kontakt' : 'einmal pro Tag'}</span>
+                </div>
+                <Icon
+                  name="chevron-down" size={16}
+                  style={{
+                    color: 'var(--fg-3)', flexShrink: 0, marginBottom: 6,
+                    transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                    transition: 'transform 220ms cubic-bezier(0.22,1,0.36,1)',
+                  }}
+                />
+              </button>
+              {isOpen && (
+                <div className="info-cards" style={{ marginTop: 4 }}>
+                  {grp.items.map(a => (
+                    <article className="info-card" key={a.id}>
+                      <div className="info-card-top">
+                        <span className="info-short">{a.short}</span>
+                        <span className="info-pts">{a.pts === 1 ? '1 Pkt' : `${a.pts} Pkte`}</span>
+                      </div>
+                      <div className="info-full">{a.label}</div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })}
 
         <section className="info-foot">
           <h4>Wie wird gezählt?</h4>
@@ -3095,7 +3121,7 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
     <>
       <header className="topbar">
         <div className="greet-line">
-          <h2 className="greeting">{isToday ? `Hallo ${state.user.name}.` : (isPast ? 'Tagesübersicht' : 'Tag in der Zukunft')}</h2>
+          <h2 className="greeting">{isToday ? `Hallo ${state.user.name}` : (isPast ? 'Tagesübersicht' : 'Tag in der Zukunft')}</h2>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
             <span className="date">{formatDateShort(currentDate)}</span>
             <button className="r-info-btn" onClick={onOpenInfo} aria-label="Info">
