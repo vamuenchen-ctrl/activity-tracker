@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Buttons — secondary / ghost</title><link rel="stylesheet" href="_preview.css"></head>
+<body>
+<style>
+  .btn {font-family:var(--font-sans);font-size:14px;font-weight:500;letter-spacing:0.02em;cursor:pointer;border-radius:8px;padding:12px 22px;transition:all var(--dur-base) var(--ease-out);}
+  .btn-outline {background:transparent;color:#1A1A1A;border:1px solid #1A1A1A;}
+  .btn-outline:hover {background:#1A1A1A;color:#fff;}
+  .btn-ghost {background:transparent;color:#1A1A1A;border:none;text-decoration:none;}
+  .btn-ghost::after {content:" →"; transition:transform var(--dur-base);}
+  .btn-ghost:hover::after {transform:translateX(2px);}
+</style>
+<div style="display:flex;flex-direction:column;gap:14px;">
+  <div class="tag">Secondary outline · used when paired beside a primary</div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+    <button class="btn btn-outline">Mehr erfahren</button>
+    <button class="btn btn-outline" style="background:#1A1A1A;color:#fff;">: hover</button>
+    <a href="#" class="btn btn-ghost">Alle Produkte ansehen</a>
+  </div>
+  <div class="tag">On color · inverts to fill</div>
+  <div style="background:#677E3D;padding:14px 18px;border-radius:12px;display:flex;gap:12px;align-items:center;">
+    <button class="btn btn-outline" style="border-color:#fff;color:#fff;">Mehr erfahren</button>
+    <button class="btn btn-outline" style="background:#fff;color:#1A1A1A;border-color:#fff;">: hover</button>
+  </div>
+</div>
+</body></html>

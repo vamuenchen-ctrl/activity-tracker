@@ -1,0 +1,4071 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="theme-color" content="#677E3D" />
+<title>AKTIVITÄTSMESSER — 30-Tage-Challenge</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap');</style>
+<link rel="manifest" href="manifest.webmanifest" />
+<style>/* =====================================================================
+   RINGANA Design System — colors + typography
+   Source: uploads/ringana-komplette-farbpalette.html (Feb 2026 analysis
+   of ringana.com + 2 official RINGANA newsletters, automatic pixel
+   extraction from 4 website screenshots + 2 newsletters).
+   ===================================================================== */
+
+/* RINGANA's real typeface system (per moodley brand identity / Fonts In Use):
+   • Body + headlines: Maax (Damien Gautier, 205TF) — licensed
+   • Logo / wordmark : Plaza (ITC) — licensed
+   Both are paid fonts and not redistributable. Until the real files are
+   supplied, the system uses DM Sans (closest free match to Maax — same
+   low-contrast geometric humanist sans, similar x-height and proportions).
+   The wordmark is rendered in tracked DM Sans Medium as a placeholder. */
+
+
+:root {
+  /* -------------------------------------------------------------------
+     PRIMITIVE COLORS — 13 brand colors extracted from real touchpoints
+     ------------------------------------------------------------------- */
+
+  /* Neutrals — the fundament. Every screen sits on white. */
+  --ringana-white:        #FFFFFF;  /* Haupt-Hintergrund: page + email body */
+  --ringana-offwhite:     #F5F5F3;  /* Warmgrau — section breaks on web */
+  --ringana-lightgrey:    #EEEEEE;  /* Newsletter footer + dividers */
+  --ringana-rosewhite:    #F4EFEE;  /* High-key product highlights */
+  --ringana-near-black:   #1A1A1A;  /* Text, buttons, CTAs */
+
+  /* Green family — THE brand color (nature, fresh, sustainability) */
+  --ringana-olive:        #677E3D;  /* Earthy moss — website hero banners */
+  --ringana-mint-strong:  #6ACCB2;  /* Punchy turquoise — newsletter heroes, partner comms */
+  --ringana-mint-soft:    #D2F0E8;  /* Info boxes, newsletter callouts */
+
+  /* Pink/rose family — beauty, valentine, lip care */
+  --ringana-blush-light:  #F7D0D3;  /* Zartrosa — lip care newsletter header */
+  --ringana-blush:        #ECB6B8;  /* Rosé / altrosa — product imagery bg */
+  --ringana-rose-deep:    #D9AEB3;  /* Darker rosé — product detail bg */
+  --ringana-berry:        #C94963;  /* Beerenrot — seasonal / Valentine */
+
+  /* Warm earth tones — skincare, naturalness */
+  --ringana-beige:        #E5DAD1;  /* Warm nude — eye serum web bg */
+  --ringana-peach:        #FEE8C4;  /* Apricot — Skin Perfection newsletter */
+
+  /* Cool accent — night / sleep / premium depth */
+  --ringana-navy:         #26496F;  /* Steel-blue — night care, „schlaf dich schön" */
+
+  /* Soft tints derived from primaries (for hover, focus rings, surfaces) */
+  --ringana-olive-tint:   #EFF1E5;
+  --ringana-berry-tint:   #FBE6EB;
+  --ringana-navy-tint:    #E6ECF3;
+
+  /* -------------------------------------------------------------------
+     SEMANTIC COLOR TOKENS
+     ------------------------------------------------------------------- */
+
+  /* Surface */
+  --bg:                   var(--ringana-white);
+  --bg-elevated:          var(--ringana-white);
+  --bg-subtle:            var(--ringana-offwhite);
+  --bg-muted:             var(--ringana-lightgrey);
+  --bg-inverse:           var(--ringana-near-black);
+
+  /* Foreground / text */
+  --fg:                   var(--ringana-near-black);
+  --fg-1:                 var(--ringana-near-black);   /* Headlines, body */
+  --fg-2:                 #4A4A4A;                     /* Secondary text */
+  --fg-3:                 #7A7A7A;                     /* Captions, meta */
+  --fg-4:                 #B5B5B5;                     /* Disabled / hints */
+  --fg-inverse:           var(--ringana-white);
+
+  /* Lines / borders — very subtle, warm-neutral */
+  --border:               #E8E7E3;
+  --border-strong:        #D6D5D1;
+  --border-inverse:       rgba(255,255,255,0.18);
+
+  /* Brand accent (primary CTA + brand moments). RINGANA uses BLACK as the
+     primary CTA color across the site; green is a thematic accent, not the
+     primary action color. */
+  --accent:               var(--ringana-near-black);
+  --accent-hover:         #000000;
+  --accent-on:            var(--ringana-white);
+
+  /* Brand-green for fresh / sustainability moments */
+  --brand-fresh:          var(--ringana-olive);
+  --brand-fresh-soft:     var(--ringana-mint-soft);
+
+  /* Feedback — kept tonally with the brand */
+  --positive:             var(--ringana-olive);
+  --warning:              #C58A2A;
+  --danger:               var(--ringana-berry);
+  --info:                 var(--ringana-navy);
+
+  /* -------------------------------------------------------------------
+     TYPOGRAPHY
+     -------------------------------------------------------------------
+     RINGANA's brand typeface (per moodley brand identity / Fonts In Use)
+     is Maax by Damien Gautier (205TF) — a low-contrast geometric
+     humanist sans used for body, headlines and packaging. The RINGANA
+     wordmark is set in Plaza (ITC).
+     
+     Both are licensed and cannot be redistributed in this kit. Until the
+     real files arrive, --font-sans uses DM Sans (closest free match to
+     Maax — same proportions, x-height, low-contrast, humanist warmth).
+     --font-display also points at DM Sans because moodley's design
+     intentionally avoids a second typeface — display = same sans, just
+     bigger and looser. Instrument Serif is preserved as an OPTIONAL
+     editorial accent (rarely used) and as a fallback if a deck or slide
+     calls for tonal contrast.
+     
+     The wordmark uses tracked DM Sans Medium as a stand-in for Plaza;
+     drop the official logo SVG into assets/logo.svg to retire this.
+     ------------------------------------------------------------------- */
+
+  --font-sans:            'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display:         'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-editorial:       'Instrument Serif', 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:            ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* Type scale (modular, anchored to 16px base) */
+  --fs-12:                0.75rem;
+  --fs-13:                0.8125rem;
+  --fs-14:                0.875rem;
+  --fs-15:                0.9375rem;
+  --fs-16:                1rem;
+  --fs-18:                1.125rem;
+  --fs-20:                1.25rem;
+  --fs-24:                1.5rem;
+  --fs-32:                2rem;
+  --fs-40:                2.5rem;
+  --fs-56:                3.5rem;
+  --fs-72:                4.5rem;
+  --fs-96:                6rem;
+
+  --lh-tight:             1.05;
+  --lh-snug:              1.2;
+  --lh-normal:            1.5;
+  --lh-relaxed:           1.65;
+
+  --ls-display:           -0.02em;   /* Tight on serif display */
+  --ls-tight:             -0.01em;
+  --ls-normal:            0;
+  --ls-wide:              0.04em;
+  --ls-wider:             0.12em;    /* For all-caps labels: „RINGANA", „FRESH" */
+
+  --fw-light:             300;
+  --fw-regular:           400;
+  --fw-medium:            500;
+  --fw-semibold:          600;
+  --fw-bold:              700;
+
+  /* -------------------------------------------------------------------
+     SPACING — 4px base, warm comfortable rhythm
+     ------------------------------------------------------------------- */
+  --space-0:              0;
+  --space-1:              4px;
+  --space-2:              8px;
+  --space-3:              12px;
+  --space-4:              16px;
+  --space-5:              20px;
+  --space-6:              24px;
+  --space-8:              32px;
+  --space-10:             40px;
+  --space-12:             48px;
+  --space-16:             64px;
+  --space-20:             80px;
+  --space-24:             96px;
+  --space-32:             128px;
+
+  /* -------------------------------------------------------------------
+     RADII — small, restrained. RINGANA is not a „bubbly" brand.
+     ------------------------------------------------------------------- */
+  --radius-xs:            2px;
+  --radius-sm:            4px;
+  --radius-md:            8px;
+  --radius-lg:            12px;
+  --radius-xl:            16px;
+  --radius-pill:          999px;
+
+  /* -------------------------------------------------------------------
+     SHADOWS — soft, low, almost decorative. Brand favours flat surfaces
+     with hairline borders over heavy elevation.
+     ------------------------------------------------------------------- */
+  --shadow-xs:            0 1px 2px rgba(26,26,26,0.04);
+  --shadow-sm:            0 1px 8px rgba(26,26,26,0.04);
+  --shadow-md:            0 6px 20px rgba(26,26,26,0.06);
+  --shadow-lg:            0 18px 48px rgba(26,26,26,0.10);
+
+  /* Motion */
+  --ease-out:             cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout:           cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:             140ms;
+  --dur-base:             220ms;
+  --dur-slow:             420ms;
+
+  /* Layout */
+  --container-narrow:     720px;
+  --container:            1120px;
+  --container-wide:       1440px;
+}
+
+/* =====================================================================
+   SEMANTIC TYPE RECIPES — drop on any element
+   ===================================================================== */
+
+.r-display-xl,
+.r-display-lg,
+.r-display,
+.r-h1,
+.r-h2,
+.r-h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  color: var(--fg-1);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+.r-display-xl,
+.r-display-lg,
+.r-display {
+  /* Big display moments — lighter weight + tighter tracking, the way
+     Maax wants to be set at large sizes. */
+  font-weight: var(--fw-regular);
+}
+.r-editorial {
+  font-family: var(--font-editorial);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+}
+
+.r-display-xl { font-size: clamp(3rem, 7vw, var(--fs-96)); line-height: var(--lh-tight); }
+.r-display-lg { font-size: clamp(2.5rem, 5.6vw, var(--fs-72)); line-height: var(--lh-tight); }
+.r-display    { font-size: clamp(2rem, 4.2vw, var(--fs-56)); }
+.r-h1         { font-size: clamp(1.75rem, 3.2vw, var(--fs-40)); }
+.r-h2         { font-size: var(--fs-32); }
+.r-h3         { font-size: var(--fs-24); }
+
+.r-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-12);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--fg-2);
+}
+
+.r-wordmark {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--fg-1);
+}
+
+.r-body-lg {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-18);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+}
+.r-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+}
+.r-body-sm {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-14);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+.r-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-13);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+}
+
+.r-label {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-13);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--fg-2);
+}
+
+.r-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+
+/* =====================================================================
+   BASE / RESET — light-touch normalize
+   ===================================================================== */
+
+html { font-size: 16px; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p { margin: 0; }
+
+
+/* ===== app.css ===== */
+/* AKTIVITÄTSMESSER — app styles on top of ../colors_and_type.css */
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --app-primary: #677E3D;
+  --app-primary-tint: #EFF1E5;
+  --app-primary-dark: #56692F;
+  --cat-sicht:  #D97A3A;
+  --cat-kontakt:#677E3D;
+  --cat-follow: #E1B645;
+  --cat-umsatz: #C94963;
+  --cat-mindset:#26496F;
+}
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(circle at 20% 10%, #EFF1E5 0%, transparent 40%),
+    radial-gradient(circle at 80% 90%, #F4EFEE 0%, transparent 50%),
+    #F5F5F3;
+  min-height: 100vh;
+  color: var(--fg-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+}
+button { cursor: pointer; }
+input { outline: none; }
+
+/* ===================== App canvas (inside iOS frame) ===================== */
+.app {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+  overflow: hidden;
+}
+
+/* Scrollable content area */
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 110px; /* room for tab bar + safe area */
+}
+
+/* ===================== Top header ===================== */
+.topbar {
+  padding: 60px 20px 8px;
+  background: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.topbar .greet-line {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+}
+.topbar .greeting {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  margin: 0;
+}
+.topbar .date {
+  font-size: 12px; letter-spacing: 0.04em; color: var(--fg-3);
+  font-feature-settings: "tnum";
+}
+.topbar .day-nav {
+  display: flex; align-items: center; gap: 4px;
+  background: var(--bg-subtle);
+  border-radius: 999px;
+  padding: 4px;
+  margin-top: 14px;
+}
+.topbar .day-nav button {
+  width: 32px; height: 32px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--fg-2);
+}
+.topbar .day-nav button:disabled { opacity: 0.3; }
+.topbar .day-nav .label {
+  flex: 1; text-align: center; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+}
+
+/* ===================== Hero progress ring ===================== */
+.hero-ring {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 22px 20px 12px;
+}
+.ring-wrap {
+  position: relative; width: 192px; height: 192px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ring-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--bg-subtle); stroke-width: 12; }
+.ring-fill  {
+  fill: none; stroke: var(--app-primary); stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.22,1,0.36,1);
+}
+.ring-center { display: flex; flex-direction: column; align-items: center; }
+.ring-center .num {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg-1);
+  font-feature-settings: "tnum";
+}
+.ring-center .of {
+  font-size: 12px; color: var(--fg-3); margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+.ring-center .of b { color: var(--fg-2); font-weight: 500; }
+.ring-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-3);
+}
+
+/* Stats strip under hero */
+.stats-strip {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin: 4px 20px 24px;
+}
+.stat-cell {
+  background: var(--bg-subtle);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.stat-cell .label { font-size: 11px; color: var(--fg-3); letter-spacing: 0.08em; text-transform: uppercase; }
+.stat-cell .value {
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 22px; letter-spacing: -0.02em;
+  font-feature-settings: "tnum";
+  color: var(--fg-1);
+}
+.stat-cell .sub { font-size: 11px; color: var(--fg-3); }
+
+/* ===================== Section ===================== */
+.section { padding: 0 20px; margin-bottom: 28px; }
+.section-title {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-title-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 6px 4px;
+  text-align: left;
+  align-items: center;
+  margin: 0 -4px 0;
+  border-radius: 8px;
+  transition: background var(--dur-base) var(--ease-out);
+}
+.section-title-toggle:hover { background: var(--bg-subtle); }
+.section-title-toggle h3 { margin: 0; }
+.section-title h3 {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-2);
+  margin: 0;
+}
+.section-title .action { font-size: 12px; color: var(--fg-3); }
+.section-title .meta { font-size: 11px; color: var(--fg-3); letter-spacing: 0.04em; }
+
+/* ===================== Daily quick-toggles (visibility + mindset) ===================== */
+.daily-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.daily-tog {
+  display: flex; align-items: center; gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 13px;
+  text-align: left;
+  width: 100%;
+  transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+  position: relative;
+}
+.daily-tog .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.daily-tog .text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 1px;
+}
+.daily-tog .text .name {
+  font-size: 13px; font-weight: 500; color: var(--fg-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.daily-tog .text .pts { font-size: 10.5px; color: var(--fg-3); }
+.daily-tog .check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; flex-shrink: 0;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.daily-tog.on { background: var(--app-primary-tint); border-color: var(--app-primary); }
+.daily-tog.on .check { background: var(--app-primary); border-color: var(--app-primary); }
+.daily-tog:active { transform: scale(0.98); }
+
+/* ===================== Contact list ===================== */
+.contact-row {
+  display: flex; align-items: center; gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 14px 14px 16px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 8px;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.contact-row:active { transform: scale(0.985); }
+.contact-row .avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--app-primary-tint);
+  color: var(--app-primary);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.contact-row .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.contact-row .name {
+  font-size: 15px; font-weight: 500; color: var(--fg-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.contact-row .activities {
+  display: flex; gap: 4px; align-items: center;
+  font-size: 11px; color: var(--fg-3);
+}
+.contact-row .activities .tag-dots { display: inline-flex; gap: 3px; }
+.contact-row .activities .tag-dots span {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.contact-row .activities .none { color: var(--fg-4); font-style: italic; }
+.contact-row .pts {
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 500;
+  background: var(--bg-subtle);
+  color: var(--fg-1);
+  border-radius: 999px;
+  padding: 6px 12px;
+  min-width: 44px; text-align: center;
+  flex-shrink: 0;
+  font-feature-settings: "tnum";
+}
+.contact-row .pts.has { background: var(--app-primary); color: #fff; }
+
+.add-contact-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  background: transparent;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 14px;
+  padding: 14px;
+  color: var(--fg-2);
+  font-size: 14px; font-weight: 500;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.add-contact-btn:hover { background: var(--bg-subtle); border-color: var(--app-primary); color: var(--app-primary); }
+
+/* Contact search */
+.contact-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-subtle);
+  border-radius: 12px;
+  padding: 9px 12px;
+  margin-bottom: 10px;
+  transition: box-shadow var(--dur-base) var(--ease-out);
+}
+.contact-search:focus-within {
+  box-shadow: 0 0 0 2px var(--app-primary-tint);
+}
+.contact-search input {
+  flex: 1; min-width: 0;
+  font-size: 14px;
+  color: var(--fg-1);
+  background: transparent;
+}
+.contact-search input::placeholder { color: var(--fg-3); }
+.contact-search-clear {
+  width: 22px; height: 22px; border-radius: 999px;
+  background: rgba(26,26,26,0.08);
+  color: var(--fg-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ===================== Bottom tab bar ===================== */
+.tabbar {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: 14px;
+  z-index: 30;
+  display: flex;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 18px 48px rgba(26,26,26,0.10), 0 1px 4px rgba(26,26,26,0.04);
+  backdrop-filter: blur(20px);
+}
+.tabbar .tab {
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 11px 10px;
+  border-radius: 999px;
+  font-size: 12.5px; font-weight: 500;
+  color: var(--fg-3);
+  letter-spacing: 0.02em;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.tabbar .tab svg { width: 17px; height: 17px; stroke-width: 1.6; }
+.tabbar .tab.active {
+  background: var(--app-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(103,126,61,0.3);
+}
+
+/* ===================== Bottom sheet ===================== */
+.sheet-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(26,26,26,0.4);
+  z-index: 90;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+.sheet {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: #FFFFFF;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  z-index: 100;
+  transform: translateY(110%);
+  transition: transform var(--dur-slow) var(--ease-out);
+  max-height: 80%;
+  display: flex; flex-direction: column;
+  box-shadow: 0 -8px 32px rgba(26,26,26,0.18);
+}
+.sheet.open { transform: translateY(0); }
+.sheet .grabber {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: var(--border-strong);
+  margin: 10px auto 6px;
+}
+.sheet .sheet-head {
+  padding: 8px 22px 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.sheet .sheet-head .left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sheet .sheet-head .title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sheet .sheet-head .sub { font-size: 11.5px; color: var(--fg-3); }
+.sheet .sheet-head .close {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg-subtle);
+  color: var(--fg-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sheet .sheet-body {
+  flex: 1; overflow-y: auto;
+  padding: 18px 22px 28px;
+}
+
+/* Activity chips inside sheet */
+.chip-group { margin-bottom: 22px; }
+.chip-group:last-child { margin-bottom: 8px; }
+.chip-group .grp-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.chip-group .grp-head .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.chip-group .grp-head .name {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-2);
+}
+.chips {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 9px 14px 9px 12px;
+  font-size: 13px;
+  color: var(--fg-1);
+  transition: all var(--dur-base) var(--ease-out);
+  white-space: nowrap;
+}
+.chip .pts {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-3);
+  padding: 1px 6px;
+  background: var(--bg-subtle);
+  border-radius: 999px;
+}
+.chip.on {
+  background: var(--app-primary);
+  color: #fff;
+  border-color: var(--app-primary);
+}
+.chip.on .pts { background: rgba(255,255,255,0.18); color: #fff; }
+.chip:active { transform: scale(0.96); }
+
+/* ===================== Buttons ===================== */
+.btn {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+  padding: 14px 22px;
+  transition: background var(--dur-base) var(--ease-out), transform 100ms var(--ease-out);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-primary { background: var(--app-primary); color: #fff; }
+.btn-primary:hover { background: var(--app-primary-dark); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { background: var(--fg-4); }
+.btn-outline { background: transparent; color: var(--fg-1); border: 1px solid var(--border-strong); }
+.btn-outline:hover { background: var(--bg-subtle); }
+.btn-ghost { color: var(--fg-2); padding: 12px 16px; }
+.btn-block { display: flex; width: 100%; }
+
+/* ===================== Onboarding ===================== */
+.onb {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  background: #FFFFFF;
+  z-index: 200;
+  padding: 48px 24px 24px;
+}
+.onb-step {
+  flex: 1; display: flex; flex-direction: column; gap: 18px;
+  padding-top: 24px;
+}
+.onb-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--app-primary);
+}
+.onb h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  margin: 0;
+  text-wrap: balance;
+}
+.onb p { font-size: 15px; line-height: 1.6; color: var(--fg-2); margin: 0; }
+.onb .field input {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 8px 0 12px;
+  background: transparent;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.onb .field input:focus { border-bottom-color: var(--app-primary); }
+.onb .field .hint { font-size: 12px; color: var(--fg-3); margin-top: 6px; }
+
+.onb .goal-display {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 8px 0 4px;
+}
+.onb .goal-display .big {
+  font-family: var(--font-display);
+  font-size: 64px; font-weight: 500; letter-spacing: -0.03em;
+  color: var(--app-primary);
+  font-feature-settings: "tnum";
+}
+.onb .goal-display .pkt { font-size: 18px; color: var(--fg-3); font-weight: 500; }
+.onb .slider { width: 100%; }
+
+.onb-progress { display: flex; gap: 6px; margin-bottom: 12px; }
+.onb-progress .seg {
+  flex: 1; height: 3px; border-radius: 2px; background: var(--bg-muted);
+}
+.onb-progress .seg.on { background: var(--app-primary); }
+
+.onb-actions { display: flex; gap: 10px; align-items: center; }
+.onb-actions .skip { margin-right: auto; }
+
+/* ===================== Calendar ===================== */
+.cal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 60px 16px 12px;
+  background: #FFFFFF;
+  position: sticky; top: 0; z-index: 5;
+}
+.cal-head .month {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  text-transform: capitalize;
+}
+.cal-head button {
+  width: 34px; height: 34px; border-radius: 999px;
+  background: var(--bg-subtle);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--fg-1);
+}
+.cal-head button:disabled { color: var(--fg-4); }
+
+.cal-stats {
+  margin: 6px 16px 14px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.cal-stats .ks {
+  background: var(--bg-subtle);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.cal-stats .ks .label {
+  font-size: 10px; color: var(--fg-3); letter-spacing: 0.12em; text-transform: uppercase;
+}
+.cal-stats .ks .v {
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 22px; letter-spacing: -0.02em;
+  font-feature-settings: "tnum";
+  color: var(--fg-1);
+  margin-top: 2px;
+}
+.cal-stats .ks .sub { font-size: 10px; color: var(--fg-3); }
+
+.cal-grid-wrap { padding: 0 16px; }
+.cal-grid-headers {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg-3);
+  padding-bottom: 8px;
+}
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+}
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  background: var(--bg-subtle);
+  color: var(--fg-1);
+  position: relative;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.cal-cell.empty { background: transparent; }
+.cal-cell.future { background: transparent; color: var(--fg-4); }
+.cal-cell.today { box-shadow: inset 0 0 0 1.5px var(--app-primary); }
+.cal-cell .day { font-size: 11px; color: var(--fg-3); }
+.cal-cell .num { font-size: 15px; font-weight: 500; margin-top: 2px; }
+.cal-cell.past-zero .num { color: var(--fg-4); }
+.cal-cell.met { background: var(--app-primary); color: #fff; }
+.cal-cell.met .day { color: rgba(255,255,255,0.7); }
+.cal-cell.partial { background: var(--app-primary-tint); }
+.cal-cell:active { transform: scale(0.95); }
+
+.cal-legend {
+  display: flex; gap: 14px; align-items: center; justify-content: center;
+  margin: 22px 16px 10px;
+  font-size: 11px; color: var(--fg-3);
+}
+.cal-legend .leg-sw { width: 12px; height: 12px; border-radius: 4px; display: inline-block; margin-right: 6px; vertical-align: -2px; }
+
+/* Cell over-achieved — small rocket */
+.cal-cell .cell-rocket {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  line-height: 1;
+  filter: saturate(1.05);
+  pointer-events: none;
+}
+.cal-cell.over.met { box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--app-primary) 70%, white) inset, 0 0 0 3px color-mix(in oklab, var(--app-primary) 22%, transparent); }
+
+/* Overshoot banner on daily view */
+.overshoot-banner {
+  display: flex; align-items: center; gap: 10px;
+  margin: -4px 20px 22px;
+  padding: 10px 14px;
+  background: var(--app-primary-tint);
+  color: var(--app-primary-dark);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  animation: overshoot-in 600ms cubic-bezier(0.22,1,0.36,1) both;
+  position: relative;
+  overflow: hidden;
+}
+.overshoot-banner .rocket {
+  font-size: 18px;
+  display: inline-block;
+  animation: rocket-bounce 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s 2;
+  transform-origin: bottom center;
+}
+.overshoot-banner .text b {
+  color: var(--app-primary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  margin-right: 2px;
+}
+@keyframes overshoot-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes rocket-bounce {
+  0%   { transform: translateY(0) rotate(0); }
+  30%  { transform: translateY(-6px) rotate(-6deg); }
+  55%  { transform: translateY(0) rotate(0); }
+  70%  { transform: translateY(-3px) rotate(4deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+.app[data-vibe="coaching"] .overshoot-banner {
+  box-shadow: 0 6px 18px color-mix(in oklab, var(--app-primary) 24%, transparent);
+}
+.app[data-vibe="pur"] .overshoot-banner {
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-1);
+}
+
+/* ===================== Settings ===================== */
+.settings-list { padding: 8px 16px 24px; }
+.settings-group { margin-bottom: 22px; }
+.settings-group .sg-title {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--fg-3); padding: 0 8px 8px;
+}
+.settings-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.settings-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row .icon { color: var(--fg-2); }
+.settings-row .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.settings-row .body .label { font-size: 14px; color: var(--fg-1); }
+.settings-row .body .sub { font-size: 11.5px; color: var(--fg-3); }
+.settings-row .value { font-size: 14px; color: var(--fg-2); font-feature-settings: "tnum"; }
+
+/* Toggle switch */
+.switch {
+  position: relative; width: 44px; height: 26px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  transition: background var(--dur-base) var(--ease-out);
+  flex-shrink: 0;
+}
+.switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.switch.on { background: var(--app-primary); }
+.switch.on::after { transform: translateX(18px); }
+
+.settings-row input[type=text] {
+  background: var(--bg-subtle);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 14px;
+  width: 110px;
+  text-align: right;
+  color: var(--fg-1);
+}
+
+/* Inline daily goal slider */
+.goal-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 20px 22px;
+}
+.goal-section .section-title-toggle h3 {
+  color: var(--fg-2);
+  letter-spacing: 0.16em;
+}
+.goal-slider-row {
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.goal-slider-row .display {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;
+}
+.goal-slider-row .display .big {
+  font-family: var(--font-display);
+  font-size: 32px; font-weight: 500; letter-spacing: -0.02em; color: var(--app-primary);
+  font-feature-settings: "tnum";
+}
+.goal-slider-row .display .lbl { font-size: 12px; color: var(--fg-3); letter-spacing: 0.04em; }
+
+/* Range input — minimal cross-browser */
+input[type=range].r-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+input[type=range].r-range::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: var(--bg-muted);
+}
+input[type=range].r-range::-moz-range-track {
+  height: 4px; border-radius: 2px; background: var(--bg-muted);
+}
+input[type=range].r-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--app-primary);
+  margin-top: -9px;
+  box-shadow: 0 1px 3px rgba(26,26,26,0.2);
+  cursor: pointer;
+}
+input[type=range].r-range::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--app-primary); border: none;
+  box-shadow: 0 1px 3px rgba(26,26,26,0.2);
+}
+
+/* ===================== Day detail (in past) ===================== */
+.notice-banner {
+  margin: 12px 20px 0;
+  padding: 10px 14px;
+  background: var(--bg-subtle);
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px;
+  color: var(--fg-2);
+  letter-spacing: 0.02em;
+}
+.notice-banner .lbl { flex: 1; }
+.notice-banner button {
+  font-size: 12px; color: var(--app-primary); font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===================== Daily summary (Übersicht style) ===================== */
+.overview-list .ov-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+.overview-list .ov-row .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.overview-list .ov-row .label { flex: 1; font-size: 13px; color: var(--fg-1); }
+.overview-list .ov-row .count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-2);
+  background: var(--bg-subtle);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-feature-settings: "tnum";
+}
+
+/* New-contact input row inline */
+.new-contact-form {
+  display: flex; gap: 8px; align-items: center;
+  background: #FFFFFF; border: 1.5px solid var(--app-primary);
+  border-radius: 14px; padding: 6px 6px 6px 16px;
+  margin-top: 8px;
+}
+.new-contact-form input {
+  flex: 1; font-size: 14px; color: var(--fg-1);
+  padding: 10px 0;
+}
+.new-contact-form input::placeholder { color: var(--fg-4); }
+.new-contact-form button {
+  font-size: 13px; padding: 9px 14px; border-radius: 10px;
+  background: var(--app-primary); color: #fff; font-weight: 500;
+}
+.new-contact-form .cancel {
+  background: transparent; color: var(--fg-3); font-weight: 400;
+}
+
+/* Empty states */
+.empty-state {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--fg-3);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.empty-state h4 {
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 18px;
+  color: var(--fg-1);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+/* ===================== Info overlay screen ===================== */
+.info-overlay {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  z-index: 150;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+.info-overlay.open { transform: translateX(0); pointer-events: auto; }
+.info-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 56px 16px 14px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 2;
+}
+.info-back {
+  width: 36px; height: 36px; border-radius: 999px;
+  background: var(--bg-subtle);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--fg-1);
+}
+.info-title {
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+.info-body { flex: 1; overflow-y: auto; padding: 0 20px 110px; }
+
+.info-intro { padding: 24px 0 8px; display: flex; flex-direction: column; gap: 10px; }
+.info-intro h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  margin: 0;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.info-intro p {
+  font-size: 14px;
+  color: var(--fg-2);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.info-group { margin-top: 26px; }
+.info-group-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 0 10px;
+}
+.info-group-name {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-2);
+}
+.info-group-meta {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--fg-3);
+  background: var(--bg-subtle);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.info-cards { display: flex; flex-direction: column; gap: 6px; }
+.info-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.info-card-top {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.info-short {
+  font-size: 13px; font-weight: 500;
+  color: var(--fg-1);
+  background: var(--app-primary-tint);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.info-pts {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--fg-2);
+  background: var(--bg-subtle);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.info-full {
+  font-size: 13px;
+  color: var(--fg-2);
+  line-height: 1.5;
+}
+
+.info-foot { margin-top: 32px; }
+.info-foot h4 {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-2);
+  margin: 0 0 6px;
+}
+.info-foot p {
+  font-size: 13.5px;
+  color: var(--fg-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* "i" button used in every screen's top bar */
+.r-info-btn {
+  width: 32px; height: 32px; border-radius: 999px;
+  background: var(--bg-subtle);
+  color: var(--fg-1);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--dur-base) var(--ease-out);
+  flex-shrink: 0;
+}
+.r-info-btn:hover { background: var(--app-primary-tint); color: var(--app-primary); }
+
+/* ============================================================
+   TWEAKS — three expressive levers that reshape the feel
+   ============================================================ */
+
+/* ---- Vibe: "coaching" — warmer, slightly more inviting ---- */
+.app[data-vibe="coaching"] {
+  background: linear-gradient(180deg, #FDFAF5 0%, #FFFFFF 36%);
+}
+.app[data-vibe="coaching"] .topbar,
+.app[data-vibe="coaching"] .cal-head {
+  background: transparent;
+}
+.app[data-vibe="coaching"] .ring-wrap {
+  filter: drop-shadow(0 8px 24px color-mix(in oklab, var(--app-primary) 22%, transparent));
+  transition: filter var(--dur-slow) var(--ease-out);
+}
+.app[data-vibe="coaching"] .ring-center .num {
+  font-size: 64px;
+}
+.app[data-vibe="coaching"] .stat-cell {
+  background: var(--app-primary-tint);
+}
+.app[data-vibe="coaching"] .contact-row {
+  border-radius: 18px;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.app[data-vibe="coaching"] .contact-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26,26,26,0.05);
+}
+.app[data-vibe="coaching"] .tabbar { border-radius: 28px; padding: 8px; }
+.app[data-vibe="coaching"] .tabbar .tab.active {
+  background: var(--app-primary);
+  box-shadow: 0 4px 14px color-mix(in oklab, var(--app-primary) 40%, transparent);
+}
+.app[data-vibe="coaching"] .daily-tog.on,
+.app[data-vibe="coaching"] .chip.on {
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--app-primary) 28%, transparent);
+}
+
+/* ---- Vibe: "pur" — data-forward, almost spreadsheet ---- */
+.app[data-vibe="pur"] {
+  background: #FFFFFF;
+}
+.app[data-vibe="pur"] .topbar,
+.app[data-vibe="pur"] .cal-head {
+  background: #FFFFFF;
+}
+.app[data-vibe="pur"] .greeting,
+.app[data-vibe="pur"] .month {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.app[data-vibe="pur"] .ring-track { stroke: #F0F0EC; }
+.app[data-vibe="pur"] .ring-fill  { stroke-width: 6; }
+.app[data-vibe="pur"] .ring-svg circle.ring-track { stroke-width: 6; }
+.app[data-vibe="pur"] .ring-center .num {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 52px;
+}
+.app[data-vibe="pur"] .ring-center .of { color: var(--fg-3); }
+.app[data-vibe="pur"] .stat-cell {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 12px 4px;
+}
+.app[data-vibe="pur"] .stats-strip {
+  margin: 12px 20px 20px;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.app[data-vibe="pur"] .stat-cell .value {
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+.app[data-vibe="pur"] .contact-row,
+.app[data-vibe="pur"] .daily-tog,
+.app[data-vibe="pur"] .settings-card,
+.app[data-vibe="pur"] .goal-slider-row {
+  border-radius: 6px;
+  border-color: #EDECE8;
+}
+.app[data-vibe="pur"] .tabbar {
+  background: rgba(255,255,255,0.96);
+  border-radius: 12px;
+  box-shadow: 0 -1px 0 var(--border), 0 -1px 4px rgba(26,26,26,0.02);
+}
+.app[data-vibe="pur"] .tabbar .tab.active {
+  background: var(--fg-1);
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.app[data-vibe="pur"] .day-nav { background: transparent; border: 1px solid var(--border); }
+.app[data-vibe="pur"] .pts.has,
+.app[data-vibe="pur"] .daily-tog.on,
+.app[data-vibe="pur"] .chip.on {
+  border-radius: 4px;
+}
+
+/* ---- Hero variant: "Balken" (horizontal bar instead of ring) ---- */
+.hero-bar {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 16px 20px 8px;
+}
+.hero-bar .hero-bar-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+}
+.hero-bar .hero-bar-head .num {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg-1);
+  font-feature-settings: "tnum";
+}
+.hero-bar .hero-bar-head .of {
+  font-size: 13px; color: var(--fg-3); letter-spacing: 0.02em;
+}
+.hero-bar .hero-bar-head .of b { color: var(--fg-1); font-weight: 500; }
+.hero-bar .hero-bar-head .pct {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--app-primary); font-weight: 500;
+  background: var(--app-primary-tint);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-feature-settings: "tnum";
+}
+.hero-bar .track {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+.hero-bar .fill {
+  position: absolute; inset: 0;
+  background: var(--app-primary);
+  border-radius: 999px;
+  transition: transform 600ms cubic-bezier(0.22,1,0.36,1);
+  transform-origin: left center;
+}
+.app[data-vibe="pur"] .hero-bar .track { height: 8px; border-radius: 4px; }
+.app[data-vibe="pur"] .hero-bar .fill  { border-radius: 4px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<script>
+window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "vibe": "coaching",
+  "palette": [
+    "#677E3D",
+    "#EFF1E5",
+    "#56692F"
+  ],
+  "hero": "ring"
+}/*EDITMODE-END*/;
+</script>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+/* ===== ios-frame.jsx ===== */
+
+// iOS.jsx — Simplified iOS 26 (Liquid Glass) device frame
+// Based on the iOS 26 UI Kit + Figma status bar spec. No assets, no deps.
+// Exports: IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard
+
+// ─────────────────────────────────────────────────────────────
+// Status bar
+// ─────────────────────────────────────────────────────────────
+function IOSStatusBar({ dark = false, time = '9:41' }) {
+  const c = dark ? '#fff' : '#000';
+  return (
+    <div style={{
+      display: 'flex', gap: 154, alignItems: 'center', justifyContent: 'center',
+      padding: '21px 24px 19px', boxSizing: 'border-box',
+      position: 'relative', zIndex: 20, width: '100%',
+    }}>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 1.5 }}>
+        <span style={{
+          fontFamily: '-apple-system, "SF Pro", system-ui', fontWeight: 590,
+          fontSize: 17, lineHeight: '22px', color: c,
+        }}>{time}</span>
+      </div>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, paddingTop: 1, paddingRight: 1 }}>
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill={c}/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill={c}/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill={c}/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill={c}/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill={c}/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill={c}/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill={c}/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill={c}/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Liquid glass pill — blur + tint + shine
+// ─────────────────────────────────────────────────────────────
+function IOSGlassPill({ children, dark = false, style = {} }) {
+  return (
+    <div style={{
+      height: 44, minWidth: 44, borderRadius: 9999,
+      position: 'relative', overflow: 'hidden',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: dark
+        ? '0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)'
+        : '0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)',
+      ...style,
+    }}>
+      {/* blur + tint */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.28)' : 'rgba(255,255,255,0.5)',
+      }} />
+      {/* shine */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', padding: '0 4px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Navigation bar — glass pills + large title
+// ─────────────────────────────────────────────────────────────
+function IOSNavBar({ title = 'Title', dark = false, trailingIcon = true }) {
+  const muted = dark ? 'rgba(255,255,255,0.6)' : '#404040';
+  const text = dark ? '#fff' : '#000';
+  const pillIcon = (content) => (
+    <IOSGlassPill dark={dark}>
+      <div style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content}
+      </div>
+    </IOSGlassPill>
+  );
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 10,
+      paddingTop: 62, paddingBottom: 10, position: 'relative', zIndex: 5,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px',
+      }}>
+        {/* back chevron */}
+        {pillIcon(
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
+            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {/* trailing ellipsis */}
+        {trailingIcon && pillIcon(
+          <svg width="22" height="6" viewBox="0 0 22 6">
+            <circle cx="3" cy="3" r="2.5" fill={muted}/>
+            <circle cx="11" cy="3" r="2.5" fill={muted}/>
+            <circle cx="19" cy="3" r="2.5" fill={muted}/>
+          </svg>
+        )}
+      </div>
+      {/* large title */}
+      <div style={{
+        padding: '0 16px',
+        fontFamily: '-apple-system, system-ui',
+        fontSize: 34, fontWeight: 700, lineHeight: '41px',
+        color: text, letterSpacing: 0.4,
+      }}>{title}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Grouped list (inset card, r:26) + row (52px)
+// ─────────────────────────────────────────────────────────────
+function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
+  const text = dark ? '#fff' : '#000';
+  const sec = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const ter = dark ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)';
+  const sep = dark ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.12)';
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', minHeight: 52,
+      padding: '0 16px', position: 'relative',
+      fontFamily: '-apple-system, system-ui', fontSize: 17,
+      letterSpacing: -0.43,
+    }}>
+      {icon && (
+        <div style={{
+          width: 30, height: 30, borderRadius: 7, background: icon,
+          marginRight: 12, flexShrink: 0,
+        }} />
+      )}
+      <div style={{ flex: 1, color: text }}>{title}</div>
+      {detail && <span style={{ color: sec, marginRight: 6 }}>{detail}</span>}
+      {chevron && (
+        <svg width="8" height="14" viewBox="0 0 8 14" style={{ flexShrink: 0 }}>
+          <path d="M1 1l6 6-6 6" stroke={ter} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+      {!isLast && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          left: icon ? 58 : 16, height: 0.5, background: sep,
+        }} />
+      )}
+    </div>
+  );
+}
+
+function IOSList({ header, children, dark = false }) {
+  const hc = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const bg = dark ? '#1C1C1E' : '#fff';
+  return (
+    <div>
+      {header && (
+        <div style={{
+          fontFamily: '-apple-system, system-ui', fontSize: 13,
+          color: hc, textTransform: 'uppercase',
+          padding: '8px 36px 6px', letterSpacing: -0.08,
+        }}>{header}</div>
+      )}
+      <div style={{
+        background: bg, borderRadius: 26,
+        margin: '0 16px', overflow: 'hidden',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Device frame
+// ─────────────────────────────────────────────────────────────
+function IOSDevice({
+  children, width = 402, height = 874, dark = false,
+  title, keyboard = false,
+}) {
+  return (
+    <div style={{
+      width, height, borderRadius: 48, overflow: 'hidden',
+      position: 'relative', background: dark ? '#000' : '#F2F2F7',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+      WebkitFontSmoothing: 'antialiased',
+    }}>
+      {/* dynamic island */}
+      <div style={{
+        position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)',
+        width: 126, height: 37, borderRadius: 24, background: '#000', zIndex: 50,
+      }} />
+      {/* status bar (absolute) */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}>
+        <IOSStatusBar dark={dark} />
+      </div>
+      {/* nav + content */}
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {title !== undefined && <IOSNavBar title={title} dark={dark} />}
+        <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+        {keyboard && <IOSKeyboard dark={dark} />}
+      </div>
+      {/* home indicator — always on top */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 60,
+        height: 34, display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+        paddingBottom: 8, pointerEvents: 'none',
+      }}>
+        <div style={{
+          width: 139, height: 5, borderRadius: 100,
+          background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.25)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Keyboard — iOS 26 liquid glass
+// ─────────────────────────────────────────────────────────────
+function IOSKeyboard({ dark = false }) {
+  const glyph = dark ? 'rgba(255,255,255,0.7)' : '#595959';
+  const sugg = dark ? 'rgba(255,255,255,0.6)' : '#333';
+  const keyBg = dark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)';
+
+  // special-key icons
+  const icons = {
+    shift: <svg width="19" height="17" viewBox="0 0 19 17"><path d="M9.5 1L1 9.5h4.5V16h8V9.5H18L9.5 1z" fill={glyph}/></svg>,
+    del: <svg width="23" height="17" viewBox="0 0 23 17"><path d="M7 1h13a2 2 0 012 2v11a2 2 0 01-2 2H7l-6-7.5L7 1z" fill="none" stroke={glyph} strokeWidth="1.6" strokeLinejoin="round"/><path d="M10 5l7 7M17 5l-7 7" stroke={glyph} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+    ret: <svg width="20" height="14" viewBox="0 0 20 14"><path d="M18 1v6H4m0 0l4-4M4 7l4 4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  };
+
+  const key = (content, { w, flex, ret, fs = 25, k } = {}) => (
+    <div key={k} style={{
+      height: 42, borderRadius: 8.5,
+      flex: flex ? 1 : undefined, width: w, minWidth: 0,
+      background: ret ? '#08f' : keyBg,
+      boxShadow: '0 1px 0 rgba(0,0,0,0.075)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: '-apple-system, "SF Compact", system-ui',
+      fontSize: fs, fontWeight: 458, color: ret ? '#fff' : glyph,
+    }}>{content}</div>
+  );
+
+  const row = (keys, pad = 0) => (
+    <div style={{ display: 'flex', gap: 6.5, justifyContent: 'center', padding: `0 ${pad}px` }}>
+      {keys.map(l => key(l, { flex: true, k: l }))}
+    </div>
+  );
+
+  return (
+    <div style={{
+      position: 'relative', zIndex: 15, borderRadius: 27, overflow: 'hidden',
+      padding: '11px 0 2px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      boxShadow: dark
+        ? '0 -2px 20px rgba(0,0,0,0.09)'
+        : '0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)',
+    }}>
+      {/* liquid glass bg — same recipe as nav pills */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.14)' : 'rgba(255,255,255,0.25)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* autocorrect bar */}
+      <div style={{
+        display: 'flex', gap: 20, alignItems: 'center',
+        padding: '8px 22px 13px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {['"The"', 'the', 'to'].map((w, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <div style={{ width: 1, height: 25, background: '#ccc', opacity: 0.3 }} />}
+            <div style={{
+              flex: 1, textAlign: 'center',
+              fontFamily: '-apple-system, system-ui', fontSize: 17,
+              color: sugg, letterSpacing: -0.43, lineHeight: '22px',
+            }}>{w}</div>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* key layout */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 13,
+        padding: '0 6.5px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {row(['q','w','e','r','t','y','u','i','o','p'])}
+        {row(['a','s','d','f','g','h','j','k','l'], 20)}
+        <div style={{ display: 'flex', gap: 14.25, alignItems: 'center' }}>
+          {key(icons.shift, { w: 45, k: 'shift' })}
+          <div style={{ display: 'flex', gap: 6.5, flex: 1 }}>
+            {['z','x','c','v','b','n','m'].map(l => key(l, { flex: true, k: l }))}
+          </div>
+          {key(icons.del, { w: 45, k: 'del' })}
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {key('ABC', { w: 92.25, fs: 18, k: 'abc' })}
+          {key('', { flex: true, k: 'space' })}
+          {key(icons.ret, { w: 92.25, ret: true, k: 'ret' })}
+        </div>
+      </div>
+
+      {/* bottom spacer (emoji+mic area, icons omitted) */}
+      <div style={{ height: 56, width: '100%', position: 'relative' }} />
+    </div>
+  );
+}
+
+Object.assign(window, {
+  IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard,
+});
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== tweaks-panel.jsx ===== */
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== data.jsx ===== */
+/* AKTIVITÄTSMESSER — data layer: activity catalog + storage + day model */
+
+/* ─────────────────────────────────────────────────────────────
+   Activity catalog (matches the spec exactly)
+   - short: Kurz-Wording in der App-UI
+   - label: voller Wortlaut aus der ÜBERSICHT der Word-Vorlage
+   - perContact: true  → marked per contact in the bottom sheet
+   - perContact: false → daily quick-toggle (one per day)
+   ───────────────────────────────────────────────────────────── */
+const ACTIVITY_GROUPS = [
+  {
+    id: 'sichtbarkeit', label: 'Sichtbarkeit', color: 'var(--cat-sicht)', perContact: false,
+    items: [
+      { id: 'promo',       short: 'Freitags-Angebote', label: 'Freitags-Produktpromotion in der Kundengruppe gepostet',                     pts: 1 },
+      { id: 'whatsapp',    short: 'WhatsApp',          label: 'Auf WhatsApp sichtbar gemacht (Status erstellt)',                            pts: 1 },
+      { id: 'instafb',     short: 'Insta / Facebook',  label: 'Auf Instagram/Facebook sichtbar gemacht (Story mit Umfragesticker, startet Gespräche)', pts: 1 },
+      { id: 'kommentare',  short: '3× Kommentare',     label: '3× auf Nicht-Partner-Accounts kommentiert (Social Media)',                   pts: 1 },
+      { id: 'reel',        short: 'Reel',              label: 'Reel / Kurzvideo erstellt & gepostet',                                       pts: 1 },
+      { id: 'mehrwert',    short: 'Mehrwert',          label: 'Mehrwert geteilt – Tipp / Ressource',                                        pts: 1 },
+    ],
+  },
+  {
+    id: 'kontakt', label: 'Kontakt & Gespräch', color: 'var(--cat-kontakt)', perContact: true,
+    items: [
+      { id: 'neukontakt',      short: 'Neukontakt',       label: 'Neue Person kennengelernt & auf Kontaktliste erfasst',          pts: 1 },
+      { id: 'bedurfnisse',     short: 'Bedürfnisse',      label: 'Persönlichkeitsmerkmale & Bedürfnisse einer Person notiert',    pts: 1 },
+      { id: 'altkontakt',      short: 'Altkontakt',       label: 'Kontakt aus der Vergangenheit wiederbelebt',                    pts: 1 },
+      { id: 'sprachnachricht', short: 'Sprachnachricht',  label: 'Sprachnachricht an Kontakt geschickt oder telefoniert',         pts: 1 },
+      { id: 'messenger',       short: 'Messenger',        label: 'In Austausch über Messenger gegangen',                          pts: 1 },
+      { id: 'kompliment',      short: 'Kompliment',       label: 'Ehrliches Kompliment / Dankesnachricht gesendet',               pts: 1 },
+      { id: 'weiterempfehlung',short: 'Weiterempfehlung', label: 'Nach Weiterempfehlung gefragt (Kontakte deines Kontakts)',      pts: 1 },
+    ],
+  },
+  {
+    id: 'followup', label: 'Follow-Up & Einladung', color: 'var(--cat-follow)', perContact: true,
+    items: [
+      { id: 'followup',   short: 'Follow-Up',   label: 'Follow-Up Nachricht gesendet (in Kontakt bleiben, ohne Erwartung)',  pts: 1 },
+      { id: 'einladung',  short: 'Einladung',   label: 'Zu Fresh date / Businesspräsentation eingeladen',                     pts: 1 },
+      { id: 'terminiert', short: 'Terminiert',  label: 'Termin für Fresh date / Businesspräsentation fix vereinbart',         pts: 2 },
+      { id: 'teilnahme',  short: 'Teilnahme',   label: 'Kontakt hat an Fresh date / Businesspräsentation teilgenommen',       pts: 2 },
+    ],
+  },
+  {
+    id: 'umsatz', label: 'Direkter Umsatz', color: 'var(--cat-umsatz)', perContact: true,
+    items: [
+      { id: 'bestellung',   short: 'Bestellung',   label: 'Produktbestellung aufgegeben',          pts: 2 },
+      { id: 'neupartner',   short: 'Neupartner',   label: 'Neupartner eingeschrieben',             pts: 3 },
+      { id: 'founderbonus', short: 'Founderbonus', label: 'Neupartner mit Founderbonus eingeschrieben', pts: 5 },
+    ],
+  },
+  {
+    id: 'mindset', label: 'Mindset', color: 'var(--cat-mindset)', perContact: false,
+    items: [
+      { id: 'mindset15',       short: '15 Min Mindset',   label: '15 Min. Mindset-Arbeit (Buch / Podcast / Video)', pts: 1 },
+      { id: 'wochenreflexion', short: 'Wochenreflexion',  label: 'Wochenreflexion / Rückblick gemacht',             pts: 3 },
+    ],
+  },
+];
+
+/* Flattened lookup of every activity by id */
+const ACTIVITY_BY_ID = ACTIVITY_GROUPS.reduce((m, g) => {
+  g.items.forEach(i => { m[i.id] = { ...i, groupId: g.id, color: g.color, groupLabel: g.label }; });
+  return m;
+}, {});
+
+const PER_CONTACT_GROUPS = ACTIVITY_GROUPS.filter(g => g.perContact);
+const DAILY_GROUPS       = ACTIVITY_GROUPS.filter(g => !g.perContact);
+
+/* ─────────────────────────────────────────────────────────────
+   Date helpers
+   ───────────────────────────────────────────────────────────── */
+const MIN_DATE = new Date(2026, 0, 1);    // 01.01.2026
+const MAX_DATE = new Date(2040, 11, 31);  // 31.12.2040
+
+function isoDay(d) {
+  const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+function parseIso(s) {
+  const [y, m, d] = s.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function addDays(d, n) {
+  const c = new Date(d); c.setDate(c.getDate() + n); return c;
+}
+function startOfWeek(d) {
+  // Monday-first
+  const c = new Date(d); c.setHours(0,0,0,0);
+  const dow = (c.getDay() + 6) % 7; // 0=Mon … 6=Sun
+  c.setDate(c.getDate() - dow);
+  return c;
+}
+function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
+function endOfMonth(d)   { return new Date(d.getFullYear(), d.getMonth() + 1, 0); }
+function sameDay(a, b)   { return isoDay(a) === isoDay(b); }
+
+const DE_WEEKDAYS_LONG  = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const DE_WEEKDAYS_SHORT = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+const DE_MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+
+function formatDateLong(d) {
+  return `${DE_WEEKDAYS_LONG[d.getDay()]}, ${d.getDate()}. ${DE_MONTHS[d.getMonth()]}`;
+}
+function formatDateShort(d) {
+  return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+}
+function formatMonth(d) {
+  return `${DE_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Storage  (localStorage with namespacing)
+   ───────────────────────────────────────────────────────────── */
+const STORAGE_KEY = 'aktivitaetsmesser:v1';
+
+const DEFAULT_STATE = {
+  user: { name: '', dailyGoalDefault: 10, anonymized: false, onboarded: false },
+  contacts: [],          // [{ id, name, createdAt }]
+  days: {},              // { 'YYYY-MM-DD': { goal?, contactActivities: { contactId: [id…] }, daily: [id…] } }
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    return { ...DEFAULT_STATE, ...JSON.parse(raw) };
+  } catch (e) {
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  }
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Day model helpers
+   ───────────────────────────────────────────────────────────── */
+function getDay(state, iso) {
+  return state.days[iso] || { goal: null, contactActivities: {}, daily: [] };
+}
+function dayPoints(state, iso) {
+  const day = getDay(state, iso);
+  let pts = 0;
+  // daily activities
+  (day.daily || []).forEach(aid => {
+    const a = ACTIVITY_BY_ID[aid]; if (a) pts += a.pts;
+  });
+  // per-contact activities
+  Object.values(day.contactActivities || {}).forEach(ids => {
+    ids.forEach(aid => {
+      const a = ACTIVITY_BY_ID[aid]; if (a) pts += a.pts;
+    });
+  });
+  return pts;
+}
+function contactPointsOnDay(state, iso, contactId) {
+  const day = getDay(state, iso);
+  const ids = (day.contactActivities && day.contactActivities[contactId]) || [];
+  return ids.reduce((s, aid) => s + (ACTIVITY_BY_ID[aid]?.pts || 0), 0);
+}
+function dayGoal(state, iso) {
+  const day = getDay(state, iso);
+  return day.goal != null ? day.goal : state.user.dailyGoalDefault;
+}
+function weekPoints(state, anchorIso) {
+  const anchor = parseIso(anchorIso);
+  const start = startOfWeek(anchor);
+  let s = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(start, i);
+    if (d > new Date()) break;
+    if (d < MIN_DATE) continue;
+    s += dayPoints(state, isoDay(d));
+  }
+  return s;
+}
+function monthPoints(state, anchorIso) {
+  const anchor = parseIso(anchorIso);
+  const s = startOfMonth(anchor);
+  const e = endOfMonth(anchor);
+  let total = 0;
+  for (let d = new Date(s); d <= e && d <= new Date(); d = addDays(d, 1)) {
+    if (d < MIN_DATE) continue;
+    total += dayPoints(state, isoDay(d));
+  }
+  return total;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mutation helpers (return a new state object)
+   ───────────────────────────────────────────────────────────── */
+function withDay(state, iso, mutator) {
+  const day = JSON.parse(JSON.stringify(getDay(state, iso)));
+  mutator(day);
+  return { ...state, days: { ...state.days, [iso]: day } };
+}
+function toggleDailyActivity(state, iso, aid) {
+  return withDay(state, iso, d => {
+    d.daily = d.daily || [];
+    const i = d.daily.indexOf(aid);
+    if (i >= 0) d.daily.splice(i, 1);
+    else d.daily.push(aid);
+  });
+}
+function toggleContactActivity(state, iso, contactId, aid) {
+  return withDay(state, iso, d => {
+    d.contactActivities = d.contactActivities || {};
+    const arr = d.contactActivities[contactId] = d.contactActivities[contactId] || [];
+    const i = arr.indexOf(aid);
+    if (i >= 0) arr.splice(i, 1);
+    else arr.push(aid);
+    if (arr.length === 0) delete d.contactActivities[contactId];
+  });
+}
+function addContact(state, name) {
+  const id = 'c' + (Date.now().toString(36)) + Math.random().toString(36).slice(2, 5);
+  return {
+    ...state,
+    contacts: [...state.contacts, { id, name: name.trim(), createdAt: isoDay(new Date()) }],
+  };
+}
+function renameContact(state, id, name) {
+  return {
+    ...state,
+    contacts: state.contacts.map(c => c.id === id ? { ...c, name: name.trim() } : c),
+  };
+}
+function anonymizeContacts(state) {
+  return {
+    ...state,
+    user: { ...state.user, anonymized: true },
+    contacts: state.contacts.map((c, i) => ({ ...c, name: `Person ${i + 1}` })),
+  };
+}
+function setDailyGoalForDay(state, iso, goal) {
+  return withDay(state, iso, d => { d.goal = goal; });
+}
+
+Object.assign(window, {
+  ACTIVITY_GROUPS, ACTIVITY_BY_ID, PER_CONTACT_GROUPS, DAILY_GROUPS,
+  MIN_DATE, MAX_DATE, isoDay, parseIso, addDays, startOfWeek, startOfMonth, endOfMonth, sameDay,
+  DE_WEEKDAYS_LONG, DE_WEEKDAYS_SHORT, DE_MONTHS,
+  formatDateLong, formatDateShort, formatMonth,
+  loadState, saveState, DEFAULT_STATE,
+  getDay, dayPoints, contactPointsOnDay, dayGoal, weekPoints, monthPoints,
+  toggleDailyActivity, toggleContactActivity, addContact, renameContact, anonymizeContacts,
+  setDailyGoalForDay,
+});
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== ui.jsx ===== */
+/* AKTIVITÄTSMESSER — shared UI primitives */
+
+const { useEffect, useRef, useState, useLayoutEffect } = React;
+
+/* ───── Icon (Lucide via global) ───── */
+function Icon({ name, size = 18, stroke = 1.6, style }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (window.lucide && ref.current) {
+      // Re-create just this node
+      ref.current.setAttribute('data-lucide', name);
+      try { window.lucide.createIcons({ icons: window.lucide.icons, attrs: { 'stroke-width': stroke } }); } catch (e) {}
+    }
+  }, [name, stroke]);
+  return (
+    <i
+      ref={ref}
+      data-lucide={name}
+      style={{ width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', strokeWidth: stroke, ...style }}
+    ></i>
+  );
+}
+
+/* ───── Button ───── */
+function Btn({ variant = 'primary', size = 'md', block, children, onClick, disabled, type = 'button' }) {
+  const cls = ['btn', `btn-${variant}`, block ? 'btn-block' : ''].filter(Boolean).join(' ');
+  return (
+    <button className={cls} onClick={onClick} disabled={disabled} type={type}
+      style={size === 'lg' ? { padding: '16px 26px', fontSize: 16 } : null}>
+      {children}
+    </button>
+  );
+}
+
+/* ───── Progress ring ─────
+   Centered SVG ring, with a numeric center stack. value/of as numbers. */
+function ProgressRing({ value, of, size = 160, stroke = 11, label = 'Tagesziel' }) {
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const pct = of > 0 ? Math.min(1, value / of) : 0;
+  const offset = c * (1 - pct);
+  return (
+    <div className="ring-wrap" style={{ width: size, height: size }}>
+      <svg className="ring-svg" viewBox={`0 0 ${size} ${size}`}>
+        <circle className="ring-track" cx={size/2} cy={size/2} r={r} />
+        <circle className="ring-fill"  cx={size/2} cy={size/2} r={r}
+          strokeDasharray={c} strokeDashoffset={offset} />
+      </svg>
+      <div className="ring-center">
+        <span className="num">{value}</span>
+        <span className="of">von <b>{of}</b> Punkten</span>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Bottom sheet — generic ───── */
+function Sheet({ open, onClose, title, sub, children, peakClose = true }) {
+  const hasHead = title || sub;
+  return (
+    <>
+      <div className={`sheet-backdrop ${open ? 'open' : ''}`} onClick={onClose}></div>
+      <div className={`sheet ${open ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="grabber"></div>
+        {hasHead && (
+          <div className="sheet-head">
+            <div className="left">
+              {title && <div className="title">{title}</div>}
+              {sub && <div className="sub">{sub}</div>}
+            </div>
+            {peakClose && (
+              <button className="close" onClick={onClose} aria-label="Schließen">
+                <Icon name="x" size={16} />
+              </button>
+            )}
+          </div>
+        )}
+        <div className="sheet-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+/* ───── Activity chip ───── */
+function Chip({ label, pts, on, onClick }) {
+  return (
+    <button className={`chip ${on ? 'on' : ''}`} onClick={onClick}>
+      {label}
+      <span className="pts">{pts === 1 ? '1 Pkt' : `${pts} Pkte`}</span>
+    </button>
+  );
+}
+
+/* ───── Activity dot ───── */
+function CategoryDot({ color, size = 8 }) {
+  return <span style={{ width: size, height: size, borderRadius: '50%', background: color, display: 'inline-block', flexShrink: 0 }}></span>;
+}
+
+/* ───── Daily quick-toggle (visibility + mindset) ───── */
+function DailyToggle({ activity, color, on, onClick }) {
+  return (
+    <button className={`daily-tog ${on ? 'on' : ''}`} onClick={onClick}>
+      <CategoryDot color={color} />
+      <div className="text">
+        <div className="name">{activity.short}</div>
+        <div className="pts">{activity.pts === 1 ? '1 Punkt' : `${activity.pts} Punkte`}</div>
+      </div>
+      <span className="check">{on ? <Icon name="check" size={12} stroke={2.5} /> : null}</span>
+    </button>
+  );
+}
+
+/* ───── Contact list row ───── */
+function ContactRow({ contact, points, activityIds, onClick }) {
+  // Initials from name (max 2 chars, supports "Person 1" → P1)
+  const initials = (() => {
+    const n = (contact.name || '').trim();
+    if (/^Person\s+\d+/i.test(n)) return 'P' + n.match(/\d+/)[0].slice(0, 2);
+    const parts = n.split(/\s+/);
+    return (parts[0]?.[0] || '?').toUpperCase() + (parts[1]?.[0] || '').toUpperCase();
+  })();
+
+  // Colored dots representing distinct activity groups marked today
+  const groupIds = Array.from(new Set(activityIds.map(id => ACTIVITY_BY_ID[id]?.groupId).filter(Boolean)));
+  const groupColors = {
+    sichtbarkeit: 'var(--cat-sicht)',
+    kontakt:      'var(--cat-kontakt)',
+    followup:     'var(--cat-follow)',
+    umsatz:       'var(--cat-umsatz)',
+    mindset:      'var(--cat-mindset)',
+  };
+
+  return (
+    <button className="contact-row" onClick={onClick}>
+      <span className="avatar">{initials}</span>
+      <div className="body">
+        <div className="name">{contact.name}</div>
+        <div className="activities">
+          {activityIds.length === 0 ? (
+            <span className="none">noch keine Aktivität</span>
+          ) : (
+            <>
+              <span className="tag-dots">
+                {groupIds.map(g => <span key={g} style={{ background: groupColors[g] }}></span>)}
+              </span>
+              <span>· {activityIds.length} Aktivität{activityIds.length !== 1 ? 'en' : ''}</span>
+            </>
+          )}
+        </div>
+      </div>
+      <span className={`pts ${points > 0 ? 'has' : ''}`}>{points}</span>
+    </button>
+  );
+}
+
+/* ───── Tab bar ───── */
+function TabBar({ tab, onChange }) {
+  const tabs = [
+    { id: 'home',     label: 'Heute',         icon: 'home' },
+    { id: 'calendar', label: 'Kalender',      icon: 'calendar' },
+    { id: 'settings', label: 'Einstellungen', icon: 'settings' },
+  ];
+  return (
+    <nav className="tabbar">
+      {tabs.map(t => (
+        <button
+          key={t.id}
+          className={`tab ${tab === t.id ? 'active' : ''}`}
+          onClick={() => onChange(t.id)}
+        >
+          <Icon name={t.icon} size={17} />
+          <span>{t.label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+/* ───── Switch toggle ───── */
+function Switch({ on, onChange }) {
+  return (
+    <button
+      className={`switch ${on ? 'on' : ''}`}
+      onClick={() => onChange(!on)}
+      role="switch"
+      aria-checked={on}
+    />
+  );
+}
+
+/* ───── Progress bar (alt hero) ───── */
+function ProgressBar({ value, of }) {
+  const pct = of > 0 ? Math.min(1, value / of) : 0;
+  return (
+    <div className="hero-bar">
+      <div className="hero-bar-head">
+        <span className="num">{value}</span>
+        <span className="of">von <b>{of}</b> Punkten heute</span>
+        <span className="pct">{Math.round(pct * 100)}%</span>
+      </div>
+      <div className="track">
+        <div className="fill" style={{ transform: `scaleX(${pct})` }}></div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, {
+  Icon, Btn, ProgressRing, ProgressBar, Sheet, Chip, CategoryDot, DailyToggle, ContactRow, TabBar, Switch,
+});
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== info.jsx ===== */
+/* AKTIVITÄTSMESSER — Info screen (overlay) */
+/* Mapping: app-internal Kurz-Wording ⇄ ÜBERSICHT (volle Beschreibung). */
+
+function InfoScreen({ open, onClose }) {
+  return (
+    <div className={`info-overlay ${open ? 'open' : ''}`}>
+      <header className="info-head">
+        <button className="info-back" onClick={onClose} aria-label="Schließen">
+          <Icon name="chevron-left" size={20} />
+        </button>
+        <div className="info-title">Info</div>
+        <span style={{ width: 36 }} aria-hidden="true"></span>
+      </header>
+
+      <div className="info-body">
+        <section className="info-intro">
+          <div className="onb-eyebrow" style={{ color: 'var(--app-primary)' }}>Aktivitäten &amp; Punkte</div>
+          <h2>So zählt die 30-Tage-Challenge.</h2>
+          <p>Hier siehst du das Kurz-Wording aus der App neben dem vollen Wortlaut aus der ÜBERSICHT — und wieviel Punkte jede Aktivität gibt.</p>
+        </section>
+
+        {ACTIVITY_GROUPS.map(grp => (
+          <section className="info-group" key={grp.id}>
+            <div className="info-group-head">
+              <CategoryDot color={grp.color} size={10} />
+              <span className="info-group-name">{grp.label}</span>
+              <span className="info-group-meta">{grp.perContact ? 'pro Kontakt' : 'einmal pro Tag'}</span>
+            </div>
+            <div className="info-cards">
+              {grp.items.map(a => (
+                <article className="info-card" key={a.id}>
+                  <div className="info-card-top">
+                    <span className="info-short">{a.short}</span>
+                    <span className="info-pts">{a.pts === 1 ? '1 Pkt' : `${a.pts} Pkte`}</span>
+                  </div>
+                  <div className="info-full">{a.label}</div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <section className="info-foot">
+          <h4>Wie wird gezählt?</h4>
+          <p>Jede markierte Aktivität zählt mit ihrem Punktewert. Werden mehrere Aktivitäten bei einem Kontakt gesetzt, werden die Einzelpunkte summiert. Das Tagesergebnis ist die Summe über alle Kontakte sowie deine Sichtbarkeits- und Mindset-Aktivitäten an diesem Tag.</p>
+          <h4 style={{ marginTop: 18 }}>Pro Kontakt vs. pro Tag</h4>
+          <p><b>Pro Kontakt</b> markierst du Aktivitäten im Kontakte-Sheet — sie zählen mehrfach, wenn du sie bei verschiedenen Kontakten setzt. <b>Pro Tag</b> sind Sichtbarkeit und Mindset: einmal pro Tag erledigt, einmal gezählt.</p>
+        </section>
+
+        <div style={{ height: 24 }}></div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { InfoScreen });
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== onboarding.jsx ===== */
+/* AKTIVITÄTSMESSER — onboarding (3 steps: name → goal → how it works) */
+
+const { useState: useStateOnb } = React;
+
+function Onboarding({ onComplete }) {
+  const [step, setStep] = useStateOnb(0);
+  const [name, setName] = useStateOnb('');
+  const [goal, setGoal] = useStateOnb(10);
+
+  const next = () => setStep(s => Math.min(2, s + 1));
+  const back = () => setStep(s => Math.max(0, s - 1));
+  const finish = () => onComplete({ name: name.trim() || 'Hallo', dailyGoalDefault: goal });
+
+  return (
+    <div className="onb">
+      <div className="onb-progress">
+        <div className={`seg ${step >= 0 ? 'on' : ''}`}></div>
+        <div className={`seg ${step >= 1 ? 'on' : ''}`}></div>
+        <div className={`seg ${step >= 2 ? 'on' : ''}`}></div>
+      </div>
+
+      {step === 0 && (
+        <div className="onb-step">
+          <div className="onb-eyebrow">Willkommen zu deinem Activity Tracker</div>
+          <h1>Aktivität ist alles. Schön, dass du da bist.</h1>
+          <p>Diese App hilft dir, deine täglichen Business-Aktivitäten zu messen — fokussiert und ohne Erfolgsdruck.</p>
+          <div className="field" style={{ marginTop: 20 }}>
+            <input
+              type="text"
+              placeholder="Dein Vorname"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              autoFocus
+              maxLength={28}
+            />
+            <div className="hint">Wir begrüßen dich damit. Bleibt nur auf deinem Gerät.</div>
+          </div>
+          <div style={{ flex: 1 }}></div>
+          <div className="onb-actions">
+            <Btn variant="primary" size="lg" block onClick={next} disabled={!name.trim()}>
+              Weiter
+            </Btn>
+          </div>
+        </div>
+      )}
+
+      {step === 1 && (
+        <div className="onb-step">
+          <div className="onb-eyebrow">Tagesziel</div>
+          <h1>Wie viele Punkte möchtest du pro Tag sammeln?</h1>
+          <p>Ein Tagesziel ist ein freundlicher Anker, kein Maßstab. Du kannst es jederzeit anpassen.</p>
+
+          <div className="goal-display">
+            <span className="big">{goal}</span>
+            <span className="pkt">Punkte / Tag</span>
+          </div>
+          <input
+            type="range" className="r-range slider"
+            min="1" max="30" step="1"
+            value={goal}
+            onChange={(e) => setGoal(parseInt(e.target.value, 10))}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--fg-3)', marginTop: -8 }}>
+            <span>1</span><span>10</span><span>20</span><span>30</span>
+          </div>
+
+          <div style={{ flex: 1 }}></div>
+          <div className="onb-actions">
+            <button className="btn btn-ghost skip" onClick={back}>Zurück</button>
+            <Btn variant="primary" size="lg" onClick={next}>Weiter</Btn>
+          </div>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="onb-step">
+          <div className="onb-eyebrow">So funktioniert's</div>
+          <h1>Hallo {name}. Drei Klicks — den Rest macht die App.</h1>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 6 }}>
+            <Step n={1}
+              title="Kontakte anlegen"
+              text={'Auf der Heute-Seite, „+ Kontakt hinzufügen". Namen reichen — keine Telefonnummern, keine Tags.'} />
+            <Step n={2}
+              title="Aktivitäten markieren"
+              text="Tippe auf einen Kontakt, wähle die passenden Aktivitäten aus. Punkte werden direkt aufsummiert." />
+            <Step n={3}
+              title="Tag wechseln & nachschauen"
+              text="Im Kalender siehst du, wieviele Punkte du an diesem Tag erreicht hast. Durch Auswahl eines Tages wechselst du in die detaillierte Tagesansicht." />
+          </div>
+
+          <div style={{ flex: 1 }}></div>
+          <div className="onb-actions">
+            <button className="btn btn-ghost skip" onClick={back}>Zurück</button>
+            <Btn variant="primary" size="lg" onClick={finish}>Los geht's</Btn>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Step({ n, title, text }) {
+  return (
+    <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+      <div style={{
+        width: 28, height: 28, borderRadius: 999,
+        background: 'var(--app-primary-tint)',
+        color: 'var(--app-primary)',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: 14,
+        flexShrink: 0,
+      }}>{n}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div style={{ fontSize: 14.5, fontWeight: 500, color: 'var(--fg-1)' }}>{title}</div>
+        <div style={{ fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.5 }}>{text}</div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { Onboarding });
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== home.jsx ===== */
+/* AKTIVITÄTSMESSER — Home (Today) screen with contact sheet */
+
+const { useState: useStateHome, useMemo: useMemoHome, useEffect: useEffectHome } = React;
+
+function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, hero = 'ring' }) {
+  const iso = isoDay(currentDate);
+  const isToday = sameDay(currentDate, new Date());
+  const isPast  = currentDate < new Date() && !isToday;
+  const isFuture = currentDate > new Date() && !isToday;
+
+  const day = getDay(state, iso);
+  const dailyPts   = dayPoints(state, iso);
+  const goal       = dayGoal(state, iso);
+  const weekPts    = weekPoints(state, iso);
+  const monthPts   = monthPoints(state, iso);
+
+  const [openContact, setOpenContact] = useStateHome(null); // contact id
+  const [showAdd, setShowAdd] = useStateHome(false);
+  const [newName, setNewName] = useStateHome('');
+  const [search, setSearch] = useStateHome('');
+
+  // Collapsed-by-default sections: sichtbarkeit, mindset, kontakt, tagesziel
+  const [collapsed, setCollapsed] = useStateHome({
+    sichtbarkeit: true,
+    mindset: true,
+    kontakt: true,
+    tagesziel: true,
+  });
+  const toggleCollapsed = (key) => setCollapsed(c => ({ ...c, [key]: !c[key] }));
+
+  const goalOverridden = day.goal != null;
+  function setTodayGoal(g) {
+    setState(s => setDailyGoalForDay(s, iso, g));
+  }
+  function clearGoalOverride() {
+    setState(s => ({ ...s, days: { ...s.days, [iso]: { ...getDay(s, iso), goal: null } } }));
+  }
+
+  function moveDay(delta) {
+    const next = addDays(currentDate, delta);
+    if (next < MIN_DATE) return;
+    if (next > MAX_DATE) return;
+    setCurrentDate(next);
+  }
+
+  function toggleDaily(aid) {
+    setState(s => toggleDailyActivity(s, iso, aid));
+  }
+  function toggleContactAct(cid, aid) {
+    setState(s => toggleContactActivity(s, iso, cid, aid));
+  }
+  function commitNewContact() {
+    if (!newName.trim()) { setShowAdd(false); return; }
+    setState(s => addContact(s, newName.trim()));
+    setNewName('');
+    setShowAdd(false);
+  }
+
+  return (
+    <>
+      <header className="topbar">
+        <div className="greet-line">
+          <h2 className="greeting">{isToday ? `Hallo ${state.user.name}.` : (isPast ? 'Tagesübersicht' : 'Tag in der Zukunft')}</h2>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+            <span className="date">{formatDateShort(currentDate)}</span>
+            <button className="r-info-btn" onClick={onOpenInfo} aria-label="Info">
+              <Icon name="info" size={16} />
+            </button>
+          </div>
+        </div>
+        <div className="day-nav">
+          <button onClick={() => moveDay(-1)} disabled={addDays(currentDate, -1) < MIN_DATE} aria-label="Tag zurück">
+            <Icon name="chevron-left" size={18} />
+          </button>
+          <div className="label">{formatDateLong(currentDate)}</div>
+          <button onClick={() => moveDay(1)} disabled={addDays(currentDate, 1) > MAX_DATE} aria-label="Tag vor">
+            <Icon name="chevron-right" size={18} />
+          </button>
+        </div>
+        {!isToday && (
+          <div className="notice-banner" style={{ margin: '12px 0 0' }}>
+            <Icon name="calendar-clock" size={14} />
+            <span className="lbl">{isFuture ? 'Zukünftiger Tag — Eingaben sind nicht aktiv.' : 'Du betrachtest einen vergangenen Tag.'}</span>
+            <button onClick={() => setCurrentDate(new Date())}>Zu heute</button>
+          </div>
+        )}
+      </header>
+
+      <div className="scroll">
+        {/* Hero — Ring or Bar depending on tweak */}
+        {hero === 'bar' ? (
+          <section style={{ paddingTop: 12 }}>
+            {isToday && <div className="ring-eyebrow" style={{ padding: '0 20px 4px' }}>Heute</div>}
+            <ProgressBar value={dailyPts} of={goal} />
+          </section>
+        ) : (
+          <section className="hero-ring">
+            {isToday && <div className="ring-eyebrow">Heute</div>}
+            <ProgressRing value={dailyPts} of={goal} />
+          </section>
+        )}
+
+        {/* Tagesziel-Banner — bei Erreichen + Übererfüllung */}
+        {goal > 0 && dailyPts >= goal && (
+          <div className="overshoot-banner">
+            <span className="rocket" aria-hidden="true">🎉</span>
+            <span className="text">
+              {dailyPts > goal
+                ? <><b>+{dailyPts - goal}</b> über dem Tagesziel</>
+                : <>Tagesziel erreicht</>}
+            </span>
+          </div>
+        )}
+
+        {/* Stats strip */}
+        <div className="stats-strip">
+          <div className="stat-cell">
+            <div className="label">Diese Woche</div>
+            <div className="value">{weekPts}</div>
+            <div className="sub">Punkte gesammelt</div>
+          </div>
+          <div className="stat-cell">
+            <div className="label">Dieser Monat</div>
+            <div className="value">{monthPts}</div>
+            <div className="sub">Punkte gesammelt</div>
+          </div>
+        </div>
+
+        {/* Sichtbarkeit + Mindset — daily toggles (collapsible) */}
+        {DAILY_GROUPS.map(grp => {
+          const groupItemIds = new Set(grp.items.map(i => i.id));
+          const ptsInGroup = (day.daily || [])
+            .filter(id => groupItemIds.has(id))
+            .reduce((s, id) => s + (ACTIVITY_BY_ID[id]?.pts || 0), 0);
+          const isCollapsed = collapsed[grp.id];
+          return (
+            <section className="section" key={grp.id}>
+              <button
+                className="section-title section-title-toggle"
+                onClick={() => toggleCollapsed(grp.id)}
+                aria-expanded={!isCollapsed}
+              >
+                <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <CategoryDot color={grp.color} /> {grp.label}
+                </h3>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                  <span className="meta">{ptsInGroup === 1 ? '1 Punkt' : `${ptsInGroup} Punkte`}</span>
+                  <Icon name="chevron-down" size={16} style={{ color: 'var(--fg-3)', transform: isCollapsed ? 'rotate(-90deg)' : 'none', transition: 'transform 220ms cubic-bezier(0.22,1,0.36,1)' }} />
+                </span>
+              </button>
+              {!isCollapsed && (
+                <div className="daily-grid" style={{ marginTop: 12 }}>
+                  {grp.items.map(a => (
+                    <DailyToggle
+                      key={a.id}
+                      activity={a}
+                      color={grp.color}
+                      on={(day.daily || []).includes(a.id)}
+                      onClick={() => !isFuture && toggleDaily(a.id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })}
+
+        {/* Contacts section (collapsible) */}
+        <section className="section">
+          {(() => {
+            const contactPts = Object.values(day.contactActivities || {})
+              .flat()
+              .reduce((s, id) => s + (ACTIVITY_BY_ID[id]?.pts || 0), 0);
+            return (
+              <button
+                className="section-title section-title-toggle"
+                onClick={() => toggleCollapsed('kontakt')}
+                aria-expanded={!collapsed.kontakt}
+              >
+                <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <CategoryDot color="var(--cat-kontakt)" /> Kontakte
+                </h3>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                  <span className="meta">{contactPts === 1 ? '1 Punkt' : `${contactPts} Punkte`}</span>
+                  <Icon name="chevron-down" size={16} style={{ color: 'var(--fg-3)', transform: collapsed.kontakt ? 'rotate(-90deg)' : 'none', transition: 'transform 220ms cubic-bezier(0.22,1,0.36,1)' }} />
+                </span>
+              </button>
+            );
+          })()}
+
+          {!collapsed.kontakt && (
+            <div style={{ marginTop: 12 }}>
+              {state.contacts.length > 0 && (
+                <div className="contact-search">
+                  <Icon name="search" size={14} style={{ color: 'var(--fg-3)' }} />
+                  <input
+                    type="text"
+                    placeholder="Kontakt suchen"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  {search && (
+                    <button
+                      className="contact-search-clear"
+                      onClick={() => setSearch('')}
+                      aria-label="Suche zurücksetzen"
+                    >
+                      <Icon name="x" size={12} />
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {state.contacts.length === 0 && !showAdd && (
+                <div className="empty-state">
+                  <h4>Noch keine Kontakte.</h4>
+                  <div>Lege deinen ersten Kontakt an — Name reicht.</div>
+                </div>
+              )}
+
+              {(() => {
+                const q = search.trim().toLowerCase();
+                const filtered = q
+                  ? state.contacts.filter(c => c.name.toLowerCase().includes(q))
+                  : state.contacts;
+                if (q && filtered.length === 0) {
+                  return (
+                    <div className="empty-state">
+                      <div>Kein Kontakt gefunden für „{search}".</div>
+                    </div>
+                  );
+                }
+                return filtered.map(c => (
+                  <ContactRow
+                    key={c.id}
+                    contact={c}
+                    points={contactPointsOnDay(state, iso, c.id)}
+                    activityIds={(day.contactActivities && day.contactActivities[c.id]) || []}
+                    onClick={() => !isFuture && setOpenContact(c.id)}
+                  />
+                ));
+              })()}
+
+              {showAdd ? (
+                <div className="new-contact-form">
+                  <input
+                    type="text" placeholder="Vorname oder Spitzname"
+                    value={newName} onChange={(e) => setNewName(e.target.value)}
+                    autoFocus
+                    onKeyDown={(e) => { if (e.key === 'Enter') commitNewContact(); if (e.key === 'Escape') { setShowAdd(false); setNewName(''); } }}
+                    maxLength={32}
+                  />
+                  <button className="cancel" onClick={() => { setShowAdd(false); setNewName(''); }}>Abbrechen</button>
+                  <button onClick={commitNewContact}>Hinzufügen</button>
+                </div>
+              ) : (
+                <button className="add-contact-btn" onClick={() => setShowAdd(true)} disabled={isFuture}>
+                  <Icon name="plus" size={16} />
+                  Kontakt hinzufügen
+                </button>
+              )}
+            </div>
+          )}
+        </section>
+
+        {/* ───── Divider ───── */}
+        <div className="goal-divider"></div>
+
+        {/* Tagesziel — per-day override (collapsible, default collapsed) */}
+        <section className="section goal-section">
+          <button
+            className="section-title section-title-toggle"
+            onClick={() => toggleCollapsed('tagesziel')}
+            aria-expanded={!collapsed.tagesziel}
+          >
+            <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Icon name="target" size={14} style={{ color: 'var(--fg-2)' }} />
+              Tagesziel
+            </h3>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+              <span className="meta">
+                {goal} {goal === 1 ? 'Punkt' : 'Punkte'}
+                {goalOverridden && <span style={{ color: 'var(--app-primary)', marginLeft: 6 }}>· angepasst</span>}
+              </span>
+              <Icon name="chevron-down" size={16} style={{ color: 'var(--fg-3)', transform: collapsed.tagesziel ? 'rotate(-90deg)' : 'none', transition: 'transform 220ms cubic-bezier(0.22,1,0.36,1)' }} />
+            </span>
+          </button>
+
+          {!collapsed.tagesziel && (
+            <div className="goal-slider-row" style={{ marginTop: 12 }}>
+              <div className="display">
+                <span className="big">{goal}</span>
+                <span className="lbl">{isToday ? 'Punkte heute' : `Punkte am ${formatDateShort(currentDate)}`}</span>
+              </div>
+              <input
+                type="range" className="r-range"
+                min="1" max="30" step="1"
+                value={goal}
+                onChange={(e) => setTodayGoal(parseInt(e.target.value, 10))}
+                disabled={isFuture}
+              />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 12 }}>
+                <span style={{ fontSize: 11.5, color: 'var(--fg-3)', lineHeight: 1.4 }}>
+                  {goalOverridden
+                    ? `Für diesen Tag angepasst. Standard wäre ${state.user.dailyGoalDefault} Pkte.`
+                    : `Aktueller Standard für alle Tage. In Einstellungen änderbar.`}
+                </span>
+                {goalOverridden && (
+                  <button
+                    onClick={clearGoalOverride}
+                    style={{ color: 'var(--app-primary)', fontSize: 12, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}
+                  >
+                    Zurücksetzen
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </section>
+
+        <div style={{ height: 24 }}></div>
+      </div>
+
+      {/* Contact activity sheet */}
+      <ContactSheet
+        contact={state.contacts.find(c => c.id === openContact)}
+        open={!!openContact}
+        onClose={() => setOpenContact(null)}
+        selected={(day.contactActivities && day.contactActivities[openContact]) || []}
+        onToggle={(aid) => toggleContactAct(openContact, aid)}
+        onRename={(name) => setState(s => renameContact(s, openContact, name))}
+        readonly={isFuture}
+      />
+    </>
+  );
+}
+
+/* ───── Contact sheet — marks activities for one contact on the selected day ───── */
+function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, readonly }) {
+  const [editName, setEditName] = useStateHome(false);
+  const [tmpName, setTmpName] = useStateHome('');
+
+  useEffectHome(() => {
+    if (open && contact) { setTmpName(contact.name); setEditName(false); }
+  }, [open, contact?.id]);
+
+  if (!contact) return <Sheet open={false} onClose={onClose} />;
+
+  const totalPts = selected.reduce((s, aid) => s + (ACTIVITY_BY_ID[aid]?.pts || 0), 0);
+
+  return (
+    <Sheet
+      open={open}
+      onClose={onClose}
+      title={null}
+      sub={null}
+    >
+      {/* custom head inside sheet body */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+        <div style={{
+          width: 44, height: 44, borderRadius: 999,
+          background: 'var(--app-primary-tint)',
+          color: 'var(--app-primary)',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 500,
+          flexShrink: 0,
+        }}>
+          {(() => {
+            const n = contact.name.trim();
+            if (/^Person\s+\d+/i.test(n)) return 'P' + n.match(/\d+/)[0].slice(0, 2);
+            const parts = n.split(/\s+/);
+            return (parts[0]?.[0] || '?').toUpperCase() + (parts[1]?.[0] || '').toUpperCase();
+          })()}
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {editName ? (
+            <input
+              type="text" value={tmpName} autoFocus
+              onChange={(e) => setTmpName(e.target.value)}
+              onBlur={() => { if (tmpName.trim()) onRename(tmpName); setEditName(false); }}
+              onKeyDown={(e) => { if (e.key === 'Enter') { if (tmpName.trim()) onRename(tmpName); setEditName(false); } }}
+              style={{
+                width: '100%',
+                fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: 20,
+                letterSpacing: '-0.01em', color: 'var(--fg-1)',
+                background: 'var(--bg-subtle)', borderRadius: 8,
+                padding: '6px 10px',
+              }}
+              maxLength={32}
+            />
+          ) : (
+            <button onClick={() => setEditName(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textAlign: 'left' }}>
+              <div className="title" style={{ fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: 20, letterSpacing: '-0.01em', color: 'var(--fg-1)' }}>{contact.name}</div>
+              <Icon name="pencil" size={14} style={{ color: 'var(--fg-3)' }} />
+            </button>
+          )}
+          <div style={{ fontSize: 12, color: 'var(--fg-3)', marginTop: 2 }}>
+            {selected.length === 0 ? 'Noch keine Aktivität für heute' : `${selected.length} Aktivität${selected.length !== 1 ? 'en' : ''} · ${totalPts} Punkt${totalPts !== 1 ? 'e' : ''}`}
+          </div>
+        </div>
+        <button onClick={onClose} className="close" style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--bg-subtle)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--fg-2)' }}>
+          <Icon name="x" size={16} />
+        </button>
+      </div>
+
+      {readonly && (
+        <div className="notice-banner" style={{ margin: '0 0 14px' }}>
+          <Icon name="lock" size={14} />
+          <span className="lbl">Zukünftiger Tag — du kannst hier nichts markieren.</span>
+        </div>
+      )}
+
+      {PER_CONTACT_GROUPS.map(grp => (
+        <div className="chip-group" key={grp.id}>
+          <div className="grp-head">
+            <CategoryDot color={grp.color} />
+            <span className="name" style={{ whiteSpace: 'nowrap' }}>{grp.label}</span>
+          </div>
+          <div className="chips">
+            {grp.items.map(a => (
+              <Chip
+                key={a.id}
+                label={a.short}
+                pts={a.pts}
+                on={selected.includes(a.id)}
+                onClick={() => !readonly && onToggle(a.id)}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div style={{ height: 8 }}></div>
+    </Sheet>
+  );
+}
+
+Object.assign(window, { HomeScreen, ContactSheet });
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== calendar.jsx ===== */
+/* AKTIVITÄTSMESSER — Calendar / Statistics screen */
+
+const { useState: useStateCal, useMemo: useMemoCal } = React;
+
+function CalendarScreen({ state, currentDate, setCurrentDate, onDayPicked, onOpenInfo }) {
+  const [anchor, setAnchor] = useStateCal(() => startOfMonth(currentDate));
+
+  function prevMonth() {
+    const p = new Date(anchor.getFullYear(), anchor.getMonth() - 1, 1);
+    if (p < startOfMonth(MIN_DATE)) return;
+    setAnchor(p);
+  }
+  function nextMonth() {
+    const n = new Date(anchor.getFullYear(), anchor.getMonth() + 1, 1);
+    if (n > MAX_DATE) return;
+    setAnchor(n);
+  }
+
+  const today = new Date();
+  const monthStart = startOfMonth(anchor);
+  const monthEnd   = endOfMonth(anchor);
+
+  // Build a 6-row × 7-col grid, Monday-first
+  const cells = useMemoCal(() => {
+    const start = startOfWeek(monthStart);
+    const out = [];
+    for (let i = 0; i < 42; i++) {
+      const d = addDays(start, i);
+      out.push(d);
+    }
+    return out;
+  }, [anchor]);
+
+  // Aggregate stats for this month
+  const monthIso = isoDay(anchor);
+  const monthTotal = monthPoints(state, monthIso);
+
+  // Count days the user MET their goal this month
+  const daysMet = useMemoCal(() => {
+    let met = 0, attempted = 0;
+    for (let d = new Date(monthStart); d <= monthEnd && d <= today; d = addDays(d, 1)) {
+      const pts = dayPoints(state, isoDay(d));
+      const g   = dayGoal(state, isoDay(d));
+      if (d >= MIN_DATE) { attempted++; if (pts >= g) met++; }
+    }
+    return { met, attempted };
+  }, [state, anchor]);
+
+  // Average across past days in the month
+  const avgPts = daysMet.attempted > 0 ? Math.round(monthTotal / daysMet.attempted) : 0;
+
+  const canPrev = startOfMonth(addDays(monthStart, -1)) >= startOfMonth(MIN_DATE);
+  const canNext = anchor < startOfMonth(MAX_DATE) || sameMonth(anchor, MAX_DATE);
+
+  function sameMonth(a, b) {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+  }
+
+  return (
+    <>
+      <header className="cal-head">
+        <button onClick={prevMonth} disabled={!canPrev} aria-label="Vorheriger Monat">
+          <Icon name="chevron-left" size={18} />
+        </button>
+        <div className="month">{formatMonth(anchor)}</div>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <button onClick={nextMonth} disabled={!canNext} aria-label="Nächster Monat">
+            <Icon name="chevron-right" size={18} />
+          </button>
+          <button className="r-info-btn" onClick={onOpenInfo} aria-label="Info">
+            <Icon name="info" size={16} />
+          </button>
+        </div>
+      </header>
+
+      <div className="scroll">
+        <div className="cal-stats">
+          <div className="ks">
+            <div className="label">Summe</div>
+            <div className="v">{monthTotal}</div>
+            <div className="sub">Punkte</div>
+          </div>
+          <div className="ks">
+            <div className="label">Ziel erreicht</div>
+            <div className="v">{daysMet.met}</div>
+            <div className="sub">von {daysMet.attempted} Tagen</div>
+          </div>
+          <div className="ks">
+            <div className="label">Schnitt</div>
+            <div className="v">{avgPts}</div>
+            <div className="sub">Pkte / Tag</div>
+          </div>
+        </div>
+
+        <div className="cal-grid-wrap">
+          <div className="cal-grid-headers">
+            {DE_WEEKDAYS_SHORT.map(w => <div key={w}>{w}</div>)}
+          </div>
+          <div className="cal-grid">
+            {cells.map((d, i) => {
+              const inMonth = d.getMonth() === anchor.getMonth();
+              const iso     = isoDay(d);
+              const isFut   = d > today;
+              const isPast  = d < today && !sameDay(d, today);
+              const isToday = sameDay(d, today);
+              const tooEarly = d < MIN_DATE;
+              const pts = (tooEarly || isFut) ? null : dayPoints(state, iso);
+              const goal = dayGoal(state, iso);
+              const met  = pts != null && pts >= goal && goal > 0;
+              const over = pts != null && goal > 0 && pts > goal;
+              const partial = pts != null && pts > 0 && !met;
+
+              let cls = 'cal-cell';
+              if (!inMonth) cls += ' empty';
+              if (isFut || tooEarly) cls += ' future';
+              if (isToday) cls += ' today';
+              if (met) cls += ' met';
+              else if (partial) cls += ' partial';
+              if (over) cls += ' over';
+              if (isPast && pts === 0) cls += ' past-zero';
+
+              const interactive = inMonth && !tooEarly && !isFut;
+              return (
+                <button
+                  key={i}
+                  className={cls}
+                  onClick={() => interactive && onDayPicked(d)}
+                  disabled={!interactive}
+                  aria-label={formatDateLong(d)}
+                >
+                  {inMonth && (
+                    <>
+                      {met && <span className="cell-rocket" aria-hidden="true">🎉</span>}
+                      <span className="day">{d.getDate()}</span>
+                      <span className="num">{pts == null ? '·' : pts}</span>
+                    </>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="cal-legend">
+          <span><span className="leg-sw" style={{ background: 'var(--app-primary)' }}></span>Tagesziel</span>
+          <span><span className="leg-sw" style={{ background: 'var(--app-primary-tint)' }}></span>angefangen</span>
+          <span><span className="leg-sw" style={{ background: 'var(--bg-subtle)' }}></span>kein Eintrag</span>
+        </div>
+
+        {/* Übersicht / day-detail breakdown — always today, per the spec */}
+        <DayBreakdown
+          state={state}
+          date={new Date()}
+        />
+
+        <div style={{ height: 24 }}></div>
+      </div>
+    </>
+  );
+}
+
+/* ───── Day breakdown (Übersicht) — Counts × points by activity for given date ───── */
+function DayBreakdown({ state, date }) {
+  const iso = isoDay(date);
+  const day = getDay(state, iso);
+
+  // Build counts: activityId → count
+  const counts = {};
+  (day.daily || []).forEach(aid => { counts[aid] = (counts[aid] || 0) + 1; });
+  Object.values(day.contactActivities || {}).forEach(ids => {
+    ids.forEach(aid => { counts[aid] = (counts[aid] || 0) + 1; });
+  });
+
+  const total = dayPoints(state, iso);
+  const hasAny = total > 0;
+
+  return (
+    <section className="section" style={{ marginTop: 22 }}>
+      <div className="section-title">
+        <h3>Übersicht · Heute · {formatDateShort(date)}</h3>
+        <span className="meta">{total} Punkte</span>
+      </div>
+
+      {!hasAny ? (
+        <div className="empty-state" style={{ background: 'var(--bg-subtle)', borderRadius: 14, padding: 22 }}>
+          <h4>Noch keine Aktivitäten erfasst.</h4>
+          <div>Beginne heute.</div>
+        </div>
+      ) : (
+        <div className="overview-list">
+          {ACTIVITY_GROUPS.map(grp => {
+            const rows = grp.items
+              .map(a => ({ ...a, count: counts[a.id] || 0 }))
+              .filter(r => r.count > 0);
+            if (rows.length === 0) return null;
+            return (
+              <div key={grp.id} style={{ marginBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 4px 6px' }}>
+                  <CategoryDot color={grp.color} />
+                  <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-2)' }}>{grp.label}</span>
+                </div>
+                {rows.map(r => (
+                  <div key={r.id} className="ov-row">
+                    <span className="dot" style={{ background: grp.color }}></span>
+                    <span className="label">{r.label}</span>
+                    <span className="count">{r.count}× · {r.count * r.pts} Pkt</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
+Object.assign(window, { CalendarScreen, DayBreakdown });
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== settings.jsx ===== */
+/* AKTIVITÄTSMESSER — Settings screen */
+
+const { useState: useStateSet } = React;
+
+function SettingsScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo }) {
+  const [editName, setEditName] = useStateSet(false);
+  const [tmpName, setTmpName] = useStateSet(state.user.name);
+  const [confirmAnon, setConfirmAnon] = useStateSet(false);
+  const [confirmAnonFinal, setConfirmAnonFinal] = useStateSet(false);
+  const [confirmReset, setConfirmReset] = useStateSet(false);
+  const [justAnon, setJustAnon] = useStateSet(false);
+
+  const iso = isoDay(currentDate);
+  const todayGoal = dayGoal(state, iso);
+  const isToday = sameDay(currentDate, new Date());
+
+  function setDefaultGoal(g) {
+    setState(s => ({ ...s, user: { ...s.user, dailyGoalDefault: g } }));
+  }
+  function overrideToday(g) {
+    setState(s => setDailyGoalForDay(s, iso, g));
+  }
+  function clearTodayOverride() {
+    setState(s => ({ ...s, days: { ...s.days, [iso]: { ...getDay(s, iso), goal: null } } }));
+  }
+  function applyAnon() {
+    setState(s => anonymizeContacts(s));
+    setConfirmAnon(false);
+    setConfirmAnonFinal(false);
+    setJustAnon(true);
+    setTimeout(() => setJustAnon(false), 2800);
+  }
+  function cancelAnon() {
+    setConfirmAnon(false);
+    setConfirmAnonFinal(false);
+  }
+  function applyReset() {
+    setState(JSON.parse(JSON.stringify(DEFAULT_STATE)));
+    setConfirmReset(false);
+  }
+
+  return (
+    <>
+      <header className="cal-head" style={{ justifyContent: 'space-between' }}>
+        <div className="month">Einstellungen</div>
+        <button className="r-info-btn" onClick={onOpenInfo} aria-label="Info">
+          <Icon name="info" size={16} />
+        </button>
+      </header>
+
+      <div className="scroll">
+        <div className="settings-list">
+
+          {/* Profile */}
+          <div className="settings-group">
+            <div className="sg-title">Profil</div>
+            <div className="settings-card">
+              <div className="settings-row">
+                <span className="icon"><Icon name="user" size={18} /></span>
+                <div className="body">
+                  <div className="label">Vorname</div>
+                  <div className="sub">Wir begrüßen dich damit.</div>
+                </div>
+                {editName ? (
+                  <input
+                    type="text" value={tmpName} autoFocus
+                    onChange={(e) => setTmpName(e.target.value)}
+                    onBlur={() => {
+                      if (tmpName.trim()) setState(s => ({ ...s, user: { ...s.user, name: tmpName.trim() } }));
+                      setEditName(false);
+                    }}
+                    onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur(); }}
+                    maxLength={28}
+                  />
+                ) : (
+                  <button className="value" onClick={() => { setTmpName(state.user.name); setEditName(true); }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--app-primary)' }}>
+                    {state.user.name || 'Tippen'}
+                    <Icon name="pencil" size={12} />
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Daily goal */}
+          <div className="settings-group">
+            <div className="sg-title">Tagesziel · Standard</div>
+            <div className="goal-slider-row">
+              <div className="display">
+                <span className="big">{state.user.dailyGoalDefault}</span>
+                <span className="lbl">Punkte / Tag</span>
+              </div>
+              <input
+                type="range" className="r-range"
+                min="1" max="30" step="1"
+                value={state.user.dailyGoalDefault}
+                onChange={(e) => setDefaultGoal(parseInt(e.target.value, 10))}
+              />
+              <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 8 }}>
+                Gilt für alle Tage. Einzelne Tage kannst du in der Tagesansicht überschreiben.
+              </div>
+            </div>
+          </div>
+
+          {/* Privacy */}
+          <div className="settings-group">
+            <div className="sg-title">Privatsphäre</div>
+            <div className="settings-card">
+              <div className="settings-row" style={{ alignItems: 'flex-start' }}>
+                <span className="icon" style={{ marginTop: 2 }}><Icon name="eye-off" size={18} /></span>
+                <div className="body">
+                  <div className="label">Kontakte anonymisieren</div>
+                  <div className="sub" style={{ marginBottom: 10 }}>
+                    Einmalige Aktion: bestehende Namen werden zu „Person 1", „Person 2"… ersetzt. Lässt sich nicht rückgängig machen.
+                  </div>
+                  {justAnon ? (
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      fontSize: 12, color: 'var(--app-primary)', fontWeight: 500,
+                      background: 'var(--app-primary-tint)',
+                      padding: '4px 10px', borderRadius: 999,
+                    }}>
+                      <Icon name="check" size={12} stroke={2.5} />
+                      Anonymisiert
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => setConfirmAnon(true)}
+                      style={{
+                        background: 'var(--bg-subtle)',
+                        color: 'var(--fg-1)',
+                        border: '1px solid var(--border-strong)',
+                        borderRadius: 10,
+                        padding: '8px 14px',
+                        fontSize: 13,
+                        fontWeight: 500,
+                      }}
+                    >
+                      Jetzt anonymisieren
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="settings-row">
+                <span className="icon"><Icon name="database" size={18} /></span>
+                <div className="body">
+                  <div className="label">Daten bleiben lokal</div>
+                  <div className="sub">Nichts wird hochgeladen. Speicherung im Browser deines Geräts.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* About */}
+          <div className="settings-group">
+            <div className="sg-title">Über</div>
+            <div className="settings-card">
+              <div className="settings-row">
+                <span className="icon"><Icon name="info" size={18} /></span>
+                <div className="body">
+                  <div className="label">Aktivitätsmesser</div>
+                  <div className="sub">30-Tage-Challenge · v1.0 · Juni 2026</div>
+                </div>
+              </div>
+              <div className="settings-row">
+                <span className="icon"><Icon name="rotate-ccw" size={18} /></span>
+                <div className="body">
+                  <button onClick={() => setConfirmReset(true)} style={{ color: 'var(--cat-umsatz)', fontSize: 14, textAlign: 'left' }}>
+                    Alle Daten zurücksetzen
+                  </button>
+                  <div className="sub">Lokale Daten löschen und neu starten.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div style={{ height: 24 }}></div>
+      </div>
+
+      {/* Anonymize confirm — step 1 */}
+      <Sheet
+        open={confirmAnon}
+        onClose={cancelAnon}
+        title="Kontakte anonymisieren?"
+        sub="Diese Aktion ersetzt einmalig alle Namen."
+      >
+        <p style={{ fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6, margin: '0 0 16px' }}>
+          Alle bestehenden Kontakte heißen danach <b>Person 1</b>, <b>Person 2</b>, … Bereits eingetragene Aktivitäten und Punkte bleiben erhalten. Neue Kontakte kannst du danach wieder mit echtem Namen anlegen.
+        </p>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={cancelAnon}>Abbrechen</button>
+          <button
+            className="btn btn-primary"
+            style={{ flex: 1 }}
+            onClick={() => { setConfirmAnon(false); setConfirmAnonFinal(true); }}
+          >
+            Weiter
+          </button>
+        </div>
+      </Sheet>
+
+      {/* Anonymize confirm — step 2 (final warning) */}
+      <Sheet
+        open={confirmAnonFinal}
+        onClose={cancelAnon}
+        title="Wirklich sicher?"
+        sub="Letzte Bestätigung — danach kein Zurück."
+      >
+        <p style={{ fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6, margin: '0 0 16px' }}>
+          Bist du wirklich sicher, dass du deine Daten anonymisieren willst? <b>Dieser Schritt kann nicht rückgängig gemacht werden.</b>
+        </p>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={cancelAnon}>Abbrechen</button>
+          <button
+            className="btn btn-primary"
+            style={{ flex: 1, background: 'var(--cat-umsatz)' }}
+            onClick={applyAnon}
+          >
+            Anonymisieren
+          </button>
+        </div>
+      </Sheet>
+
+      {/* Reset confirm sheet */}
+      <Sheet
+        open={confirmReset}
+        onClose={() => setConfirmReset(false)}
+        title="Alle Daten zurücksetzen?"
+        sub="Diese Aktion lässt sich nicht rückgängig machen."
+      >
+        <p style={{ fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6, margin: '0 0 16px' }}>
+          Profil, Kontakte und alle erfassten Aktivitäten werden gelöscht. Die App startet wieder mit dem Willkommens-Bildschirm.
+        </p>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => setConfirmReset(false)}>Abbrechen</button>
+          <button className="btn btn-primary" style={{ flex: 1, background: 'var(--cat-umsatz)' }} onClick={applyReset}>Zurücksetzen</button>
+        </div>
+      </Sheet>
+    </>
+  );
+}
+
+Object.assign(window, { SettingsScreen });
+
+</script>
+<script type="text/babel" data-presets="react">
+/* ===== app.jsx ===== */
+/* AKTIVITÄTSMESSER — App container, tabs, state, tweaks */
+
+const { useState: useStateApp2, useEffect: useEffectApp2, useRef: useRefApp2 } = React;
+
+function App() {
+  const [state, setStateRaw] = useStateApp2(() => loadState());
+  const [tab, setTab] = useStateApp2('home');
+  const [currentDate, setCurrentDate] = useStateApp2(() => new Date());
+  const [infoOpen, setInfoOpen] = useStateApp2(false);
+
+  // Tweaks — three expressive levers
+  const [tweaks, setTweak] = useTweaks(window.TWEAK_DEFAULTS || {
+    vibe: 'ruhig',
+    palette: ['#677E3D', '#EFF1E5', '#56692F'],
+    hero: 'ring',
+  });
+  const [paletteP, paletteTint, paletteDark] = Array.isArray(tweaks.palette)
+    ? tweaks.palette
+    : ['#677E3D', '#EFF1E5', '#56692F'];
+
+  const firstRun = useRefApp2(true);
+  useEffectApp2(() => {
+    if (firstRun.current) { firstRun.current = false; return; }
+    saveState(state);
+  }, [state]);
+
+  useEffectApp2(() => {
+    if (window.lucide) {
+      try { window.lucide.createIcons(); } catch (e) {}
+    }
+  });
+
+  function setState(next) {
+    setStateRaw(typeof next === 'function' ? next : () => next);
+  }
+
+  function completeOnboarding({ name, dailyGoalDefault }) {
+    setStateRaw(s => ({
+      ...s,
+      user: { ...s.user, name, dailyGoalDefault, onboarded: true },
+      contacts: s.contacts.length === 0
+        ? [
+            { id: 'seed1', name: 'Anna',   createdAt: isoDay(new Date()) },
+            { id: 'seed2', name: 'Lisa',   createdAt: isoDay(new Date()) },
+            { id: 'seed3', name: 'Sophie', createdAt: isoDay(new Date()) },
+          ]
+        : s.contacts,
+    }));
+  }
+
+  function handleCalendarPick(d) {
+    setCurrentDate(d);
+    setTab('home');
+  }
+
+  // Inline style overrides for the chosen accent palette
+  const paletteStyle = {
+    '--app-primary':      paletteP,
+    '--app-primary-tint': paletteTint,
+    '--app-primary-dark': paletteDark,
+  };
+
+  return (
+    <IOSDevice width={402} height={874}>
+      <div className="app" data-vibe={tweaks.vibe} style={paletteStyle}>
+        {!state.user.onboarded && (
+          <Onboarding onComplete={completeOnboarding} />
+        )}
+
+        {state.user.onboarded && tab === 'home' && (
+          <HomeScreen
+            state={state}
+            setState={setState}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            onOpenInfo={() => setInfoOpen(true)}
+            hero={tweaks.hero}
+          />
+        )}
+
+        {state.user.onboarded && tab === 'calendar' && (
+          <CalendarScreen
+            state={state}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            onDayPicked={handleCalendarPick}
+            onOpenInfo={() => setInfoOpen(true)}
+          />
+        )}
+
+        {state.user.onboarded && tab === 'settings' && (
+          <SettingsScreen
+            state={state}
+            setState={setState}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            onOpenInfo={() => setInfoOpen(true)}
+          />
+        )}
+
+        {state.user.onboarded && (
+          <TabBar tab={tab} onChange={setTab} />
+        )}
+
+        <InfoScreen open={infoOpen} onClose={() => setInfoOpen(false)} />
+      </div>
+
+      {/* Tweaks panel — outside the .app frame so it floats independently */}
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Stimmung">
+          <TweakRadio
+            label="Vibe"
+            value={tweaks.vibe}
+            options={[
+              { value: 'ruhig',    label: 'Ruhig' },
+              { value: 'coaching', label: 'Coaching' },
+              { value: 'pur',      label: 'Pur' },
+            ]}
+            onChange={(v) => setTweak('vibe', v)}
+          />
+        </TweakSection>
+
+        <TweakSection label="Akzentfarbe">
+          <TweakColor
+            label="Palette"
+            value={tweaks.palette}
+            options={[
+              ['#677E3D', '#EFF1E5', '#56692F'],  // Olive (Default)
+              ['#C94963', '#FBE6EB', '#A93B52'],  // Beere
+              ['#26496F', '#E6ECF3', '#1D3654'],  // Navy
+              ['#1A1A1A', '#F5F5F3', '#000000'],  // Schwarz
+            ]}
+            onChange={(v) => setTweak('palette', v)}
+          />
+        </TweakSection>
+
+        <TweakSection label="Tageshero">
+          <TweakRadio
+            label="Darstellung"
+            value={tweaks.hero}
+            options={[
+              { value: 'ring', label: 'Ring' },
+              { value: 'bar',  label: 'Balken' },
+            ]}
+            onChange={(v) => setTweak('hero', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </IOSDevice>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+</script>
+</body>
+</html>

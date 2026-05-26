@@ -1,0 +1,319 @@
+/* =====================================================================
+   RINGANA Design System — colors + typography
+   Source: uploads/ringana-komplette-farbpalette.html (Feb 2026 analysis
+   of ringana.com + 2 official RINGANA newsletters, automatic pixel
+   extraction from 4 website screenshots + 2 newsletters).
+   ===================================================================== */
+
+/* RINGANA's real typeface system (per moodley brand identity / Fonts In Use):
+   • Body + headlines: Maax (Damien Gautier, 205TF) — licensed
+   • Logo / wordmark : Plaza (ITC) — licensed
+   Both are paid fonts and not redistributable. Until the real files are
+   supplied, the system uses DM Sans (closest free match to Maax — same
+   low-contrast geometric humanist sans, similar x-height and proportions).
+   The wordmark is rendered in tracked DM Sans Medium as a placeholder. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap');
+
+:root {
+  /* -------------------------------------------------------------------
+     PRIMITIVE COLORS — 13 brand colors extracted from real touchpoints
+     ------------------------------------------------------------------- */
+
+  /* Neutrals — the fundament. Every screen sits on white. */
+  --ringana-white:        #FFFFFF;  /* Haupt-Hintergrund: page + email body */
+  --ringana-offwhite:     #F5F5F3;  /* Warmgrau — section breaks on web */
+  --ringana-lightgrey:    #EEEEEE;  /* Newsletter footer + dividers */
+  --ringana-rosewhite:    #F4EFEE;  /* High-key product highlights */
+  --ringana-near-black:   #1A1A1A;  /* Text, buttons, CTAs */
+
+  /* Green family — THE brand color (nature, fresh, sustainability) */
+  --ringana-olive:        #677E3D;  /* Earthy moss — website hero banners */
+  --ringana-mint-strong:  #6ACCB2;  /* Punchy turquoise — newsletter heroes, partner comms */
+  --ringana-mint-soft:    #D2F0E8;  /* Info boxes, newsletter callouts */
+
+  /* Pink/rose family — beauty, valentine, lip care */
+  --ringana-blush-light:  #F7D0D3;  /* Zartrosa — lip care newsletter header */
+  --ringana-blush:        #ECB6B8;  /* Rosé / altrosa — product imagery bg */
+  --ringana-rose-deep:    #D9AEB3;  /* Darker rosé — product detail bg */
+  --ringana-berry:        #C94963;  /* Beerenrot — seasonal / Valentine */
+
+  /* Warm earth tones — skincare, naturalness */
+  --ringana-beige:        #E5DAD1;  /* Warm nude — eye serum web bg */
+  --ringana-peach:        #FEE8C4;  /* Apricot — Skin Perfection newsletter */
+
+  /* Cool accent — night / sleep / premium depth */
+  --ringana-navy:         #26496F;  /* Steel-blue — night care, „schlaf dich schön" */
+
+  /* Soft tints derived from primaries (for hover, focus rings, surfaces) */
+  --ringana-olive-tint:   #EFF1E5;
+  --ringana-berry-tint:   #FBE6EB;
+  --ringana-navy-tint:    #E6ECF3;
+
+  /* -------------------------------------------------------------------
+     SEMANTIC COLOR TOKENS
+     ------------------------------------------------------------------- */
+
+  /* Surface */
+  --bg:                   var(--ringana-white);
+  --bg-elevated:          var(--ringana-white);
+  --bg-subtle:            var(--ringana-offwhite);
+  --bg-muted:             var(--ringana-lightgrey);
+  --bg-inverse:           var(--ringana-near-black);
+
+  /* Foreground / text */
+  --fg:                   var(--ringana-near-black);
+  --fg-1:                 var(--ringana-near-black);   /* Headlines, body */
+  --fg-2:                 #4A4A4A;                     /* Secondary text */
+  --fg-3:                 #7A7A7A;                     /* Captions, meta */
+  --fg-4:                 #B5B5B5;                     /* Disabled / hints */
+  --fg-inverse:           var(--ringana-white);
+
+  /* Lines / borders — very subtle, warm-neutral */
+  --border:               #E8E7E3;
+  --border-strong:        #D6D5D1;
+  --border-inverse:       rgba(255,255,255,0.18);
+
+  /* Brand accent (primary CTA + brand moments). RINGANA uses BLACK as the
+     primary CTA color across the site; green is a thematic accent, not the
+     primary action color. */
+  --accent:               var(--ringana-near-black);
+  --accent-hover:         #000000;
+  --accent-on:            var(--ringana-white);
+
+  /* Brand-green for fresh / sustainability moments */
+  --brand-fresh:          var(--ringana-olive);
+  --brand-fresh-soft:     var(--ringana-mint-soft);
+
+  /* Feedback — kept tonally with the brand */
+  --positive:             var(--ringana-olive);
+  --warning:              #C58A2A;
+  --danger:               var(--ringana-berry);
+  --info:                 var(--ringana-navy);
+
+  /* -------------------------------------------------------------------
+     TYPOGRAPHY
+     -------------------------------------------------------------------
+     RINGANA's brand typeface (per moodley brand identity / Fonts In Use)
+     is Maax by Damien Gautier (205TF) — a low-contrast geometric
+     humanist sans used for body, headlines and packaging. The RINGANA
+     wordmark is set in Plaza (ITC).
+     
+     Both are licensed and cannot be redistributed in this kit. Until the
+     real files arrive, --font-sans uses DM Sans (closest free match to
+     Maax — same proportions, x-height, low-contrast, humanist warmth).
+     --font-display also points at DM Sans because moodley's design
+     intentionally avoids a second typeface — display = same sans, just
+     bigger and looser. Instrument Serif is preserved as an OPTIONAL
+     editorial accent (rarely used) and as a fallback if a deck or slide
+     calls for tonal contrast.
+     
+     The wordmark uses tracked DM Sans Medium as a stand-in for Plaza;
+     drop the official logo SVG into assets/logo.svg to retire this.
+     ------------------------------------------------------------------- */
+
+  --font-sans:            'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display:         'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-editorial:       'Instrument Serif', 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:            ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* Type scale (modular, anchored to 16px base) */
+  --fs-12:                0.75rem;
+  --fs-13:                0.8125rem;
+  --fs-14:                0.875rem;
+  --fs-15:                0.9375rem;
+  --fs-16:                1rem;
+  --fs-18:                1.125rem;
+  --fs-20:                1.25rem;
+  --fs-24:                1.5rem;
+  --fs-32:                2rem;
+  --fs-40:                2.5rem;
+  --fs-56:                3.5rem;
+  --fs-72:                4.5rem;
+  --fs-96:                6rem;
+
+  --lh-tight:             1.05;
+  --lh-snug:              1.2;
+  --lh-normal:            1.5;
+  --lh-relaxed:           1.65;
+
+  --ls-display:           -0.02em;   /* Tight on serif display */
+  --ls-tight:             -0.01em;
+  --ls-normal:            0;
+  --ls-wide:              0.04em;
+  --ls-wider:             0.12em;    /* For all-caps labels: „RINGANA", „FRESH" */
+
+  --fw-light:             300;
+  --fw-regular:           400;
+  --fw-medium:            500;
+  --fw-semibold:          600;
+  --fw-bold:              700;
+
+  /* -------------------------------------------------------------------
+     SPACING — 4px base, warm comfortable rhythm
+     ------------------------------------------------------------------- */
+  --space-0:              0;
+  --space-1:              4px;
+  --space-2:              8px;
+  --space-3:              12px;
+  --space-4:              16px;
+  --space-5:              20px;
+  --space-6:              24px;
+  --space-8:              32px;
+  --space-10:             40px;
+  --space-12:             48px;
+  --space-16:             64px;
+  --space-20:             80px;
+  --space-24:             96px;
+  --space-32:             128px;
+
+  /* -------------------------------------------------------------------
+     RADII — small, restrained. RINGANA is not a „bubbly" brand.
+     ------------------------------------------------------------------- */
+  --radius-xs:            2px;
+  --radius-sm:            4px;
+  --radius-md:            8px;
+  --radius-lg:            12px;
+  --radius-xl:            16px;
+  --radius-pill:          999px;
+
+  /* -------------------------------------------------------------------
+     SHADOWS — soft, low, almost decorative. Brand favours flat surfaces
+     with hairline borders over heavy elevation.
+     ------------------------------------------------------------------- */
+  --shadow-xs:            0 1px 2px rgba(26,26,26,0.04);
+  --shadow-sm:            0 1px 8px rgba(26,26,26,0.04);
+  --shadow-md:            0 6px 20px rgba(26,26,26,0.06);
+  --shadow-lg:            0 18px 48px rgba(26,26,26,0.10);
+
+  /* Motion */
+  --ease-out:             cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout:           cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:             140ms;
+  --dur-base:             220ms;
+  --dur-slow:             420ms;
+
+  /* Layout */
+  --container-narrow:     720px;
+  --container:            1120px;
+  --container-wide:       1440px;
+}
+
+/* =====================================================================
+   SEMANTIC TYPE RECIPES — drop on any element
+   ===================================================================== */
+
+.r-display-xl,
+.r-display-lg,
+.r-display,
+.r-h1,
+.r-h2,
+.r-h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  color: var(--fg-1);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+.r-display-xl,
+.r-display-lg,
+.r-display {
+  /* Big display moments — lighter weight + tighter tracking, the way
+     Maax wants to be set at large sizes. */
+  font-weight: var(--fw-regular);
+}
+.r-editorial {
+  font-family: var(--font-editorial);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+}
+
+.r-display-xl { font-size: clamp(3rem, 7vw, var(--fs-96)); line-height: var(--lh-tight); }
+.r-display-lg { font-size: clamp(2.5rem, 5.6vw, var(--fs-72)); line-height: var(--lh-tight); }
+.r-display    { font-size: clamp(2rem, 4.2vw, var(--fs-56)); }
+.r-h1         { font-size: clamp(1.75rem, 3.2vw, var(--fs-40)); }
+.r-h2         { font-size: var(--fs-32); }
+.r-h3         { font-size: var(--fs-24); }
+
+.r-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-12);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--fg-2);
+}
+
+.r-wordmark {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--fg-1);
+}
+
+.r-body-lg {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-18);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+}
+.r-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+}
+.r-body-sm {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-14);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+.r-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-13);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+}
+
+.r-label {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-13);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--fg-2);
+}
+
+.r-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+
+/* =====================================================================
+   BASE / RESET — light-touch normalize
+   ===================================================================== */
+
+html { font-size: 16px; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p { margin: 0; }

@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Badges & pills</title><link rel="stylesheet" href="_preview.css"></head>
+<body>
+<style>
+  .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 12px;font-family:var(--font-sans);font-size:11px;font-weight:500;letter-spacing:0.04em;border:1px solid transparent;}
+  .pill.dot::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .pill-default{background:#F5F5F3;color:#4A4A4A;border-color:#E8E7E3;}
+  .pill-fresh{background:#D2F0E8;color:#2F6A55;}
+  .pill-new{background:#1A1A1A;color:#fff;}
+  .pill-sale{background:#C94963;color:#fff;}
+  .pill-cert{background:#fff;color:#677E3D;border-color:#677E3D;}
+  .pill-warm{background:#FEE8C4;color:#7A5A20;}
+  .pill-rose{background:#F7D0D3;color:#8A4A50;}
+</style>
+<div style="display:flex;flex-direction:column;gap:14px;">
+  <div>
+    <div class="tag">State / collection</div>
+    <div class="row" style="margin-top:8px;">
+      <span class="pill pill-new">Neu</span>
+      <span class="pill pill-sale">−20 %</span>
+      <span class="pill pill-fresh dot">Bestseller</span>
+      <span class="pill pill-default">Limitiert</span>
+    </div>
+  </div>
+  <div>
+    <div class="tag">Attributes / trust</div>
+    <div class="row" style="margin-top:8px;">
+      <span class="pill pill-cert">vegan</span>
+      <span class="pill pill-cert">COSMOS organic</span>
+      <span class="pill pill-cert">CO₂-neutral</span>
+      <span class="pill pill-cert">made in Austria</span>
+    </div>
+  </div>
+  <div>
+    <div class="tag">Category accent</div>
+    <div class="row" style="margin-top:8px;">
+      <span class="pill pill-warm">Skincare</span>
+      <span class="pill pill-rose">Lip Care</span>
+      <span class="pill pill-fresh">Supplements</span>
+    </div>
+  </div>
+</div>
+</body></html>

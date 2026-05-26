@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Product card</title><link rel="stylesheet" href="_preview.css"></head>
+<body>
+<style>
+  body{background:#FAFAF8;}
+  .pcard{background:#fff;border:1px solid #E8E7E3;border-radius:12px;overflow:hidden;font-family:var(--font-sans);transition:transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);}
+  .pcard:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(26,26,26,0.06);}
+  .pcard .img{aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;}
+  .pcard .img .placeholder{font-family:var(--font-display);font-size:38px;color:rgba(26,26,26,0.18);letter-spacing:-0.02em;}
+  .pcard .meta{padding:14px 14px 16px;}
+  .pcard .line{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#7A7A7A;}
+  .pcard .name{font-size:14px;font-weight:500;color:#1A1A1A;margin-top:4px;}
+  .pcard .desc{font-size:12px;color:#7A7A7A;margin-top:2px;}
+  .pcard .price{font-size:13px;color:#1A1A1A;margin-top:10px;font-family:var(--font-mono);}
+</style>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+  <article class="pcard">
+    <div class="img" style="background:#E5DAD1;"><div class="placeholder">eye serum</div></div>
+    <div class="meta">
+      <div class="line">FRESH</div>
+      <div class="name">FRESH eye serum</div>
+      <div class="desc">Augenpflege · 15 ml</div>
+      <div class="price">49,90 €</div>
+    </div>
+  </article>
+  <article class="pcard">
+    <div class="img" style="background:#ECB6B8;"><div class="placeholder">lip care</div></div>
+    <div class="meta">
+      <div class="line">FRESH</div>
+      <div class="name">FRESH lip care</div>
+      <div class="desc">Lippenpflege · 5 ml</div>
+      <div class="price">19,90 €</div>
+    </div>
+  </article>
+  <article class="pcard">
+    <div class="img" style="background:#26496F;"><div class="placeholder" style="color:rgba(255,255,255,0.28);">night</div></div>
+    <div class="meta">
+      <div class="line">FRESH</div>
+      <div class="name">FRESH night recovery</div>
+      <div class="desc">Nachtpflege · 30 ml</div>
+      <div class="price">69,90 €</div>
+    </div>
+  </article>
+</div>
+</body></html>

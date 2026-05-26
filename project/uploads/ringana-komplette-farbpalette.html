@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RINGANA – Komplette Farbpalette 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F5F2;
+    --card: #FFFFFF;
+    --text: #1a1a1a;
+    --muted: #7a7a7a;
+    --border: #E8E7E3;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  /* Hero header */
+  .hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: #fff;
+    padding: 60px 40px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(106,204,178,0.08) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 50%;
+    height: 160%;
+    background: radial-gradient(ellipse, rgba(236,182,184,0.08) 0%, transparent 70%);
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.92rem;
+    margin-top: 10px;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+  .hero .color-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero .color-dots span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    animation: fadeInDot 0.4s ease both;
+  }
+  @keyframes fadeInDot {
+    from { opacity:0; transform:scale(0.5); }
+    to { opacity:1; transform:scale(1); }
+  }
+
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 48px 0 20px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  .section-header .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 500;
+    background: var(--bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* Color grid */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .color-card {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .color-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+  .cc-swatch {
+    height: 80px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 8px 10px;
+  }
+  .cc-swatch .cc-hex {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.8);
+    color: #333;
+    backdrop-filter: blur(4px);
+  }
+  .cc-swatch.dark .cc-hex {
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+  }
+  .cc-body {
+    padding: 12px 14px;
+  }
+  .cc-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+  .cc-usage {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* Full-width bar */
+  .palette-bar {
+    display: flex;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin: 24px 0;
+  }
+  .palette-bar div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+    transition: flex 0.3s;
+  }
+  .palette-bar div:hover { flex-grow: 1.5 !important; }
+
+  /* Category labels */
+  .cat-label {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  /* Usage context table */
+  .context-table {
+    width: 100%;
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    margin: 24px 0;
+    border-collapse: collapse;
+  }
+  .context-table th {
+    text-align: left;
+    padding: 14px 18px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    background: #fafaf8;
+    border-bottom: 2px solid var(--border);
+  }
+  .context-table td {
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .context-table tr:last-child td { border-bottom: none; }
+  .context-table .td-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .context-table .td-hex {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  /* Conclusion */
+  .conclusion {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 32px;
+    margin-top: 36px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    border-top: 4px solid #6ACCB2;
+  }
+  .conclusion h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .conclusion p {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    line-height: 1.7;
+  }
+  .conclusion ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+  .conclusion li {
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #bbb;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 550px) {
+    .hero { padding: 40px 20px 32px; }
+    .hero h1 { font-size: 1.8rem; }
+    .color-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .content { padding: 24px 16px 40px; }
+    .section-header .source { display: none; }
+    .context-table { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>RINGANA – Komplette Farbpalette</h1>
+  <p>Alle Hintergrundfarben aus Website & Newslettern · Stand Februar 2026</p>
+  <div class="color-dots">
+    <span style="background:#E5DAD1;animation-delay:0s;"></span>
+    <span style="background:#26496F;animation-delay:0.05s;"></span>
+    <span style="background:#C94963;animation-delay:0.1s;"></span>
+    <span style="background:#677E3D;animation-delay:0.15s;"></span>
+    <span style="background:#F7D0D3;animation-delay:0.2s;"></span>
+    <span style="background:#ECB6B8;animation-delay:0.25s;"></span>
+    <span style="background:#6ACCB2;animation-delay:0.3s;"></span>
+    <span style="background:#D2F0E8;animation-delay:0.35s;"></span>
+    <span style="background:#FEE8C4;animation-delay:0.4s;"></span>
+    <span style="background:#FFFFFF;border-color:rgba(255,255,255,0.3);animation-delay:0.45s;"></span>
+    <span style="background:#1A1A1A;animation-delay:0.5s;"></span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ===== GESAMTPALETTE BAR ===== -->
+<div class="palette-bar">
+  <div style="flex:1;background:#FFFFFF;color:#bbb;border:1px solid #eee;">Weiß</div>
+  <div style="flex:0.6;background:#F5F5F3;color:#999;">Off-White</div>
+  <div style="flex:0.6;background:#EEEEEE;color:#999;">Grau</div>
+  <div style="flex:0.7;background:#E5DAD1;color:#6a5a50;">Beige</div>
+  <div style="flex:0.7;background:#FEE8C4;color:#7a6030;">Pfirsich</div>
+  <div style="flex:0.5;background:#F7D0D3;color:#8a4a4f;">Zartrosa</div>
+  <div style="flex:0.5;background:#ECB6B8;color:#5a2528;">Rosé</div>
+  <div style="flex:0.4;background:#C94963;color:#fff;">Berry</div>
+  <div style="flex:0.5;background:#D2F0E8;color:#4a7a6d;">Mint</div>
+  <div style="flex:0.5;background:#6ACCB2;color:#fff;">Türkis</div>
+  <div style="flex:0.5;background:#677E3D;color:#fff;">Oliv</div>
+  <div style="flex:0.5;background:#26496F;color:#fff;">Navy</div>
+  <div style="flex:0.4;background:#1A1A1A;color:#fff;">Schwarz</div>
+</div>
+
+<!-- ===== 1. BASIS-FARBEN ===== -->
+<div class="section-header">
+  <div class="section-icon" style="background:#f0f0ec;">⬜</div>
+  <h2>Basis & Neutraltöne</h2>
+  <span class="source">Website + Newsletter</span>
+</div>
+<span class="cat-label" style="background:#f0f0ec;color:#666;">Kommen überall vor – bilden das Fundament</span>
+
+<div class="color-grid">
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#FFFFFF;border-bottom:1px solid #eee;">
+      <span class="cc-hex">#FFFFFF</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Weiß</div>
+      <div class="cc-usage">Haupt-Hintergrund überall, E-Mail-Body, Textbereiche</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#F5F5F3;">
+      <span class="cc-hex">#F5F5F3</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Warmgrau / Off-White</div>
+      <div class="cc-usage">Sektionswechsel auf der Website</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#EEEEEE;">
+      <span class="cc-hex">#EEEEEE</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Hellgrau</div>
+      <div class="cc-usage">Footer-Bereich, Trennlinien (Newsletter)</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#1A1A1A;">
+      <span class="cc-hex dark">#1A1A1A</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Fast-Schwarz</div>
+      <div class="cc-usage">Text, Buttons, CTA-Elemente</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. GRÜN-FAMILIE ===== -->
+<div class="section-header">
+  <div class="section-icon" style="background:#D2F0E8;">🌿</div>
+  <h2>Grün-Familie – Die Markenfarbe</h2>
+  <span class="source">Website + Newsletter 2</span>
+</div>
+<span class="cat-label" style="background:#D2F0E8;color:#2D6A4F;">RINGANA-Kernfarbe: Natur, Frische, Nachhaltigkeit</span>
+
+<div class="color-grid">
+  <div class="color-card">
+    <div class="cc-swatch dark" style="background:#677E3D;">
+      <span class="cc-hex">#677E3D</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Olivgrün / Moosgrün</div>
+      <div class="cc-usage">Website-Banner „Spot the difference"</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch dark" style="background:#6ACCB2;">
+      <span class="cc-hex">#6ACCB2</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Türkis / Mint (kräftig)</div>
+      <div class="cc-usage">Newsletter-Banner, Partner-Kommunikation</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#D2F0E8;">
+      <span class="cc-hex">#D2F0E8</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Zartes Mintgrün</div>
+      <div class="cc-usage">Info-Boxen im Newsletter</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. ROSA-FAMILIE ===== -->
+<div class="section-header">
+  <div class="section-icon" style="background:#F7D0D3;">💕</div>
+  <h2>Rosa-Familie – Beauty & Aktionen</h2>
+  <span class="source">Website + Newsletter 1</span>
+</div>
+<span class="cat-label" style="background:#F7D0D3;color:#8a4a50;">Valentinstag, Lippenpflege, Skincare</span>
+
+<div class="color-grid">
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#F7D0D3;">
+      <span class="cc-hex">#F7D0D3</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Zartrosa (hell)</div>
+      <div class="cc-usage">Newsletter Lip Care – Header</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#ECB6B8;">
+      <span class="cc-hex">#ECB6B8</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Rosé / Altrosa</div>
+      <div class="cc-usage">Newsletter Lip Care – Produktbilder</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch dark" style="background:#D9AEB3;">
+      <span class="cc-hex">#D9AEB3</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Dunkles Rosé</div>
+      <div class="cc-usage">Newsletter Lip Care – Produktdetails</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch dark" style="background:#C94963;">
+      <span class="cc-hex">#C94963</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Beerenrot</div>
+      <div class="cc-usage">Website-Banner „Valentine's friends set"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. WARME TÖNE ===== -->
+<div class="section-header">
+  <div class="section-icon" style="background:#FEE8C4;">🍑</div>
+  <h2>Warme Töne – Beige, Pfirsich, Nude</h2>
+  <span class="source">Website + Newsletter 2</span>
+</div>
+<span class="cat-label" style="background:#FEE8C4;color:#7a6030;">Produkthintergründe, Skincare</span>
+
+<div class="color-grid">
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#E5DAD1;">
+      <span class="cc-hex">#E5DAD1</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Warmes Beige / Nude</div>
+      <div class="cc-usage">Website – Eye Serum Produkthintergrund</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#FEE8C4;">
+      <span class="cc-hex">#FEE8C4</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Pfirsich / Apricot</div>
+      <div class="cc-usage">Newsletter – Skin Perfection Produktbild</div>
+    </div>
+  </div>
+  <div class="color-card">
+    <div class="cc-swatch" style="background:#F4EFEE;">
+      <span class="cc-hex">#F4EFEE</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Rosé-Weiß</div>
+      <div class="cc-usage">Website – helle Highlights im Eye Serum</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. KÜHLE AKZENTE ===== -->
+<div class="section-header">
+  <div class="section-icon" style="background:#26496F;">
+    <span style="font-size:1.3rem;">🌙</span>
+  </div>
+  <h2>Kühle Akzente – Blau</h2>
+  <span class="source">Website</span>
+</div>
+<span class="cat-label" style="background:#c8d8e8;color:#26496F;">Thematisch: Nacht, Schlaf, Tiefe</span>
+
+<div class="color-grid">
+  <div class="color-card">
+    <div class="cc-swatch dark" style="background:#26496F;">
+      <span class="cc-hex">#26496F</span>
+    </div>
+    <div class="cc-body">
+      <div class="cc-name">Dunkles Stahlblau / Navy</div>
+      <div class="cc-usage">Website-Banner „Schlaf dich schön" – Nachtpflege</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ÜBERSICHTSTABELLE ===== -->
+<div class="section-header" style="margin-top:56px;">
+  <div class="section-icon" style="background:#f0f0ec;">📋</div>
+  <h2>Schnellübersicht – Alle 13 Farben</h2>
+</div>
+
+<table class="context-table">
+  <thead>
+    <tr>
+      <th>Farbe</th>
+      <th>Hex-Code</th>
+      <th>Name</th>
+      <th>Quelle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="td-swatch" style="background:#FFFFFF;border:1px solid #ddd;"></span></td>
+      <td class="td-hex">#FFFFFF</td>
+      <td>Weiß</td>
+      <td>Website + Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#F5F5F3;"></span></td>
+      <td class="td-hex">#F5F5F3</td>
+      <td>Warmgrau / Off-White</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#EEEEEE;"></span></td>
+      <td class="td-hex">#EEEEEE</td>
+      <td>Hellgrau</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#F4EFEE;"></span></td>
+      <td class="td-hex">#F4EFEE</td>
+      <td>Rosé-Weiß</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#E5DAD1;"></span></td>
+      <td class="td-hex">#E5DAD1</td>
+      <td>Warmes Beige / Nude</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#FEE8C4;"></span></td>
+      <td class="td-hex">#FEE8C4</td>
+      <td>Pfirsich / Apricot</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#F7D0D3;"></span></td>
+      <td class="td-hex">#F7D0D3</td>
+      <td>Zartrosa</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#ECB6B8;"></span></td>
+      <td class="td-hex">#ECB6B8</td>
+      <td>Rosé / Altrosa</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#C94963;"></span></td>
+      <td class="td-hex">#C94963</td>
+      <td>Beerenrot</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#D2F0E8;"></span></td>
+      <td class="td-hex">#D2F0E8</td>
+      <td>Zartes Mintgrün</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#6ACCB2;"></span></td>
+      <td class="td-hex">#6ACCB2</td>
+      <td>Türkis / Mint (kräftig)</td>
+      <td>Newsletter</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#677E3D;"></span></td>
+      <td class="td-hex">#677E3D</td>
+      <td>Olivgrün / Moosgrün</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#26496F;"></span></td>
+      <td class="td-hex">#26496F</td>
+      <td>Dunkles Stahlblau / Navy</td>
+      <td>Website</td>
+    </tr>
+    <tr>
+      <td><span class="td-swatch" style="background:#1A1A1A;"></span></td>
+      <td class="td-hex">#1A1A1A</td>
+      <td>Fast-Schwarz</td>
+      <td>Website + Newsletter</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== FAZIT ===== -->
+<div class="conclusion">
+  <h2>Erkenntnisse – Das RINGANA-Farbsystem</h2>
+
+  <p><strong>1. Basis ist immer Weiß + Schwarz.</strong> Egal ob Website oder Newsletter – der Großteil der Fläche ist Weiß (#FFFFFF), Text und Buttons sind Fast-Schwarz (#1A1A1A). Das sorgt für den cleanen, minimalistischen Look.</p>
+
+  <p><strong>2. Jedes Thema bekommt eine eigene Farbwelt.</strong> RINGANA nutzt kein starres Farbschema, sondern passt die Akzentfarbe dem Kontext an:</p>
+  <ul>
+    <li><strong>Grün/Türkis</strong> (#677E3D / #6ACCB2) → Nachhaltigkeit, Business, Partner</li>
+    <li><strong>Rosa/Rosé</strong> (#F7D0D3 / #ECB6B8) → Beauty, Valentinstag, Lippenpflege</li>
+    <li><strong>Beige/Pfirsich</strong> (#E5DAD1 / #FEE8C4) → Skincare-Produkte, Natürlichkeit</li>
+    <li><strong>Blau/Navy</strong> (#26496F) → Nachtpflege, Ruhe, Premium</li>
+    <li><strong>Beerenrot</strong> (#C94963) → Saisonale Aktionen, Emotionalität</li>
+  </ul>
+
+  <p><strong>3. Zwei verschiedene Grüntöne.</strong> Auf der Website wird ein erdiges Olivgrün (#677E3D) eingesetzt, in den Newslettern ein frisches Türkis (#6ACCB2). Beide verkörpern die Marke „Natur", aber für unterschiedliche Stimmungen.</p>
+
+  <p><strong>4. Die Farbpalette ist sanft und natürlich.</strong> Alle Farben haben eine leicht gedeckte, warme Qualität – keine grellen Neonfarben. Das passt zur Positionierung als Premium-Naturkosmetik.</p>
+</div>
+
+<div class="footer-note">
+  Analyse erstellt am 12.02.2026 · Farben extrahiert aus 4 Website-Screenshots + 2 offiziellen RINGANA-Newslettern<br>
+  Hex-Codes aus automatischer Pixelanalyse der Originaldateien
+</div>
+
+</div>
+</body>
+</html>
