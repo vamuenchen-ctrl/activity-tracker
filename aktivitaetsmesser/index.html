@@ -422,6 +422,7 @@ input { outline: none; }
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 110px; /* room for tab bar + safe area */
+  min-width: 0;
 }
 
 /* ===================== Top header ===================== */
@@ -551,7 +552,7 @@ input { outline: none; }
 
 /* ===================== Daily quick-toggles (visibility + mindset) ===================== */
 .daily-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
 }
 .daily-tog {
@@ -944,7 +945,7 @@ input { outline: none; }
   padding-bottom: 8px;
 }
 .cal-grid {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
 }
 .cal-cell {
   aspect-ratio: 1;
