@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <meta name="theme-color" content="#677E3D" />
 <title>AKTIVITÄTSMESSER — 30-Tage-Challenge</title>
 <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif&display=swap');</style>
@@ -358,6 +358,40 @@ body {
   align-items: center;
   justify-content: center;
   padding: 32px 0;
+}
+
+/* ── Mobile: run fullscreen, no iOS frame ── */
+@media (max-width: 500px) {
+  body {
+    background: #FFFFFF;
+    display: block;
+    padding: 0;
+    min-height: 100dvh;
+  }
+  .app {
+    height: 100dvh !important;
+    width: 100vw !important;
+    border-radius: 0 !important;
+  }
+  /* Account for notch / Dynamic Island via safe-area-inset */
+  .topbar {
+    padding-top: max(52px, calc(env(safe-area-inset-top) + 12px)) !important;
+  }
+  .cal-head {
+    padding-top: max(52px, calc(env(safe-area-inset-top) + 12px)) !important;
+  }
+  .scroll {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important;
+  }
+  .tabbar {
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+  }
+  .info-head {
+    padding-top: max(48px, calc(env(safe-area-inset-top) + 10px)) !important;
+  }
+  .onb {
+    padding-top: max(48px, calc(env(safe-area-inset-top) + 12px)) !important;
+  }
 }
 
 button, input, select, textarea {
@@ -3974,92 +4008,105 @@ function App() {
     '--app-primary-dark': paletteDark,
   };
 
+  // On a real mobile device skip the desktop preview frame entirely
+  const isMobileDevice = window.innerWidth <= 500;
+
+  const appContent = (
+    <div className="app" data-vibe={tweaks.vibe} style={paletteStyle}>
+      {!state.user.onboarded && (
+        <Onboarding onComplete={completeOnboarding} />
+      )}
+
+      {state.user.onboarded && tab === 'home' && (
+        <HomeScreen
+          state={state}
+          setState={setState}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          onOpenInfo={() => setInfoOpen(true)}
+          hero={tweaks.hero}
+        />
+      )}
+
+      {state.user.onboarded && tab === 'calendar' && (
+        <CalendarScreen
+          state={state}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          onDayPicked={handleCalendarPick}
+          onOpenInfo={() => setInfoOpen(true)}
+        />
+      )}
+
+      {state.user.onboarded && tab === 'settings' && (
+        <SettingsScreen
+          state={state}
+          setState={setState}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          onOpenInfo={() => setInfoOpen(true)}
+        />
+      )}
+
+      {state.user.onboarded && (
+        <TabBar tab={tab} onChange={setTab} />
+      )}
+
+      <InfoScreen open={infoOpen} onClose={() => setInfoOpen(false)} />
+    </div>
+  );
+
+  const tweaksPanel = (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Stimmung">
+        <TweakRadio
+          label="Vibe"
+          value={tweaks.vibe}
+          options={[
+            { value: 'ruhig',    label: 'Ruhig' },
+            { value: 'coaching', label: 'Coaching' },
+            { value: 'pur',      label: 'Pur' },
+          ]}
+          onChange={(v) => setTweak('vibe', v)}
+        />
+      </TweakSection>
+
+      <TweakSection label="Akzentfarbe">
+        <TweakColor
+          label="Palette"
+          value={tweaks.palette}
+          options={[
+            ['#677E3D', '#EFF1E5', '#56692F'],
+            ['#C94963', '#FBE6EB', '#A93B52'],
+            ['#26496F', '#E6ECF3', '#1D3654'],
+            ['#1A1A1A', '#F5F5F3', '#000000'],
+          ]}
+          onChange={(v) => setTweak('palette', v)}
+        />
+      </TweakSection>
+
+      <TweakSection label="Tageshero">
+        <TweakRadio
+          label="Darstellung"
+          value={tweaks.hero}
+          options={[
+            { value: 'ring', label: 'Ring' },
+            { value: 'bar',  label: 'Balken' },
+          ]}
+          onChange={(v) => setTweak('hero', v)}
+        />
+      </TweakSection>
+    </TweaksPanel>
+  );
+
+  if (isMobileDevice) {
+    return <>{appContent}{tweaksPanel}</>;
+  }
+
   return (
     <IOSDevice width={402} height={874}>
-      <div className="app" data-vibe={tweaks.vibe} style={paletteStyle}>
-        {!state.user.onboarded && (
-          <Onboarding onComplete={completeOnboarding} />
-        )}
-
-        {state.user.onboarded && tab === 'home' && (
-          <HomeScreen
-            state={state}
-            setState={setState}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            onOpenInfo={() => setInfoOpen(true)}
-            hero={tweaks.hero}
-          />
-        )}
-
-        {state.user.onboarded && tab === 'calendar' && (
-          <CalendarScreen
-            state={state}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            onDayPicked={handleCalendarPick}
-            onOpenInfo={() => setInfoOpen(true)}
-          />
-        )}
-
-        {state.user.onboarded && tab === 'settings' && (
-          <SettingsScreen
-            state={state}
-            setState={setState}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            onOpenInfo={() => setInfoOpen(true)}
-          />
-        )}
-
-        {state.user.onboarded && (
-          <TabBar tab={tab} onChange={setTab} />
-        )}
-
-        <InfoScreen open={infoOpen} onClose={() => setInfoOpen(false)} />
-      </div>
-
-      {/* Tweaks panel — outside the .app frame so it floats independently */}
-      <TweaksPanel title="Tweaks">
-        <TweakSection label="Stimmung">
-          <TweakRadio
-            label="Vibe"
-            value={tweaks.vibe}
-            options={[
-              { value: 'ruhig',    label: 'Ruhig' },
-              { value: 'coaching', label: 'Coaching' },
-              { value: 'pur',      label: 'Pur' },
-            ]}
-            onChange={(v) => setTweak('vibe', v)}
-          />
-        </TweakSection>
-
-        <TweakSection label="Akzentfarbe">
-          <TweakColor
-            label="Palette"
-            value={tweaks.palette}
-            options={[
-              ['#677E3D', '#EFF1E5', '#56692F'],  // Olive (Default)
-              ['#C94963', '#FBE6EB', '#A93B52'],  // Beere
-              ['#26496F', '#E6ECF3', '#1D3654'],  // Navy
-              ['#1A1A1A', '#F5F5F3', '#000000'],  // Schwarz
-            ]}
-            onChange={(v) => setTweak('palette', v)}
-          />
-        </TweakSection>
-
-        <TweakSection label="Tageshero">
-          <TweakRadio
-            label="Darstellung"
-            value={tweaks.hero}
-            options={[
-              { value: 'ring', label: 'Ring' },
-              { value: 'bar',  label: 'Balken' },
-            ]}
-            onChange={(v) => setTweak('hero', v)}
-          />
-        </TweakSection>
-      </TweaksPanel>
+      {appContent}
+      {tweaksPanel}
     </IOSDevice>
   );
 }
