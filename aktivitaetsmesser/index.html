@@ -565,6 +565,7 @@ input { outline: none; }
   width: 100%;
   transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
   position: relative;
+  touch-action: manipulation;
 }
 .daily-tog .dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -601,6 +602,7 @@ input { outline: none; }
   text-align: left;
   margin-bottom: 8px;
   transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  touch-action: manipulation;
 }
 .contact-row:active { transform: scale(0.985); }
 .contact-row .avatar {
@@ -791,6 +793,7 @@ input { outline: none; }
   color: var(--fg-1);
   transition: all var(--dur-base) var(--ease-out);
   white-space: nowrap;
+  touch-action: manipulation;
 }
 .chip .pts {
   font-family: var(--font-mono); font-size: 11px;
@@ -2406,19 +2409,19 @@ const ACTIVITY_GROUPS = [
   {
     id: 'kontakt', label: 'Kontakt & Gespräch', color: 'var(--cat-kontakt)', perContact: true,
     items: [
-      { id: 'neukontakt',      short: 'Neukontakt',       label: 'Neue Person kennengelernt & auf Kontaktliste erfasst',          pts: 1 },
-      { id: 'bedurfnisse',     short: 'Bedürfnisse',      label: 'Persönlichkeitsmerkmale & Bedürfnisse einer Person notiert',    pts: 1 },
-      { id: 'altkontakt',      short: 'Altkontakt',       label: 'Kontakt aus der Vergangenheit wiederbelebt',                    pts: 1 },
-      { id: 'sprachnachricht', short: 'Sprachnachricht',  label: 'Sprachnachricht an Kontakt geschickt oder telefoniert',         pts: 1 },
-      { id: 'messenger',       short: 'Messenger',        label: 'In Austausch über Messenger gegangen',                          pts: 1 },
-      { id: 'kompliment',      short: 'Kompliment',       label: 'Ehrliches Kompliment / Dankesnachricht gesendet',               pts: 1 },
-      { id: 'weiterempfehlung',short: 'Weiterempfehlung', label: 'Nach Weiterempfehlung gefragt (Kontakte deines Kontakts)',      pts: 1 },
+      { id: 'neukontakt',      short: 'Neukontakt',         label: 'Neue Person kennengelernt & auf Kontaktliste erfasst',          pts: 1 },
+      { id: 'altkontakt',      short: 'Altkontakt',         label: 'Kontakt aus der Vergangenheit wiederbelebt',                    pts: 1 },
+      { id: 'bedurfnisse',     short: 'Bedürfnisse',        label: 'Persönlichkeitsmerkmale & Bedürfnisse einer Person notiert',    pts: 1 },
+      { id: 'sprachnachricht', short: 'Sprachnachricht',    label: 'Sprachnachricht an Kontakt geschickt oder telefoniert',         pts: 1 },
+      { id: 'messenger',       short: 'Messenger',          label: 'In Austausch über Messenger gegangen',                          pts: 1 },
+      { id: 'kompliment',      short: 'Kompliment/Danke',   label: 'Ehrliches Kompliment / Dankesnachricht gesendet',               pts: 1 },
+      { id: 'weiterempfehlung',short: 'Weiterempfehlung',   label: 'Nach Weiterempfehlung gefragt (Kontakte deines Kontakts)',      pts: 1 },
     ],
   },
   {
     id: 'followup', label: 'Follow-Up & Einladung', color: 'var(--cat-follow)', perContact: true,
     items: [
-      { id: 'followup',   short: 'Follow-Up',   label: 'Follow-Up Nachricht gesendet (in Kontakt bleiben, ohne Erwartung)',  pts: 1 },
+      { id: 'followup',   short: 'Followup',    label: 'Follow-Up Nachricht gesendet (in Kontakt bleiben, ohne Erwartung)',  pts: 1 },
       { id: 'einladung',  short: 'Einladung',   label: 'Zu Fresh date / Businesspräsentation eingeladen',                     pts: 1 },
       { id: 'terminiert', short: 'Terminiert',  label: 'Termin für Fresh date / Businesspräsentation fix vereinbart',         pts: 2 },
       { id: 'teilnahme',  short: 'Teilnahme',   label: 'Kontakt hat an Fresh date / Businesspräsentation teilgenommen',       pts: 2 },
@@ -2498,7 +2501,7 @@ function formatMonth(d) {
 const STORAGE_KEY = 'aktivitaetsmesser:v1';
 
 const DEFAULT_STATE = {
-  user: { name: '', dailyGoalDefault: 10, anonymized: false, onboarded: false },
+  user: { name: '', dailyGoalDefault: 6, anonymized: false, onboarded: false },
   contacts: [],          // [{ id, name, createdAt }]
   days: {},              // { 'YYYY-MM-DD': { goal?, contactActivities: { contactId: [id…] }, daily: [id…] } }
 };
@@ -2720,7 +2723,10 @@ function Sheet({ open, onClose, title, sub, children, peakClose = true }) {
 /* ───── Activity chip ───── */
 function Chip({ label, pts, on, onClick }) {
   return (
-    <button className={`chip ${on ? 'on' : ''}`} onClick={onClick}>
+    <button
+      className={`chip ${on ? 'on' : ''}`}
+      onClick={(e) => { e.stopPropagation(); onClick && onClick(e); }}
+    >
       {label}
       <span className="pts">{pts === 1 ? '1 Pkt' : `${pts} Pkte`}</span>
     </button>
@@ -2735,7 +2741,7 @@ function CategoryDot({ color, size = 8 }) {
 /* ───── Daily quick-toggle (visibility + mindset) ───── */
 function DailyToggle({ activity, color, on, onClick }) {
   return (
-    <button className={`daily-tog ${on ? 'on' : ''}`} onClick={onClick}>
+    <button className={`daily-tog ${on ? 'on' : ''}`} onClick={(e) => { e.stopPropagation(); onClick && onClick(e); }}>
       <CategoryDot color={color} />
       <div className="text">
         <div className="name">{activity.short}</div>
@@ -2941,7 +2947,7 @@ const { useState: useStateOnb } = React;
 function Onboarding({ onComplete }) {
   const [step, setStep] = useStateOnb(0);
   const [name, setName] = useStateOnb('');
-  const [goal, setGoal] = useStateOnb(10);
+  const [goal, setGoal] = useStateOnb(6);
 
   const next = () => setStep(s => Math.min(2, s + 1));
   const back = () => setStep(s => Math.max(0, s - 1));
@@ -3011,18 +3017,15 @@ function Onboarding({ onComplete }) {
       {step === 2 && (
         <div className="onb-step">
           <div className="onb-eyebrow">So funktioniert's</div>
-          <h1>Hallo {name}. Drei Klicks — den Rest macht die App.</h1>
+          <h1>Einfach starten — die App führt dich.</h1>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 6 }}>
             <Step n={1}
-              title="Kontakte anlegen"
-              text={'Auf der Heute-Seite, „+ Kontakt hinzufügen". Namen reichen — keine Telefonnummern, keine Tags.'} />
+              title="Deinen Bereich wählen"
+              text={'„Sichtbarkeit", „Mindset" oder (direkte) „Kontakte" — such dir den Bereich aus, in dem du heute aktiv warst, und tippe auf den Pfeil „>" rechts neben dem Bereich. Dadurch öffnet sich die Anzeige mit den Aktivitäten zu diesem Bereich.'} />
             <Step n={2}
-              title="Aktivitäten markieren"
-              text="Tippe auf einen Kontakt, wähle die passenden Aktivitäten aus. Punkte werden direkt aufsummiert." />
-            <Step n={3}
-              title="Tag wechseln & nachschauen"
-              text="Im Kalender siehst du, wieviele Punkte du an diesem Tag erreicht hast. Durch Auswahl eines Tages wechselst du in die detaillierte Tagesansicht." />
+              title="Aktivität eintragen"
+              text={'Tippe auf den Kreis „o" bei der passenden Aktivität, um diese auszuwählen. Alles andere — Punkte, Auswertung, Fortschritt — rechnet die App für dich. Du siehst sofort schwarz auf weiß, wie aktiv du wirklich warst — heute, diese Woche und diesen Monat.'} />
           </div>
 
           <div style={{ flex: 1 }}></div>
