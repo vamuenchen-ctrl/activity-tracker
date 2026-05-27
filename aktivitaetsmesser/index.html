@@ -3065,7 +3065,7 @@ Object.assign(window, { Onboarding });
 /* ===== home.jsx ===== */
 /* AKTIVITÄTSMESSER — Home (Today) screen with contact sheet */
 
-const { useState: useStateHome, useMemo: useMemoHome, useEffect: useEffectHome } = React;
+const { useState: useStateHome, useMemo: useMemoHome, useEffect: useEffectHome, useRef: useRefHome } = React;
 
 function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, hero = 'ring' }) {
   const iso = isoDay(currentDate);
@@ -3083,6 +3083,7 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
   const [showAdd, setShowAdd] = useStateHome(false);
   const [newName, setNewName] = useStateHome('');
   const [search, setSearch] = useStateHome('');
+  const lastToggleRef = useRefHome(0); // debounce: timestamp of last toggle
 
   // Collapsed-by-default sections: sichtbarkeit, mindset, kontakt, tagesziel
   const [collapsed, setCollapsed] = useStateHome({
@@ -3109,9 +3110,15 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
   }
 
   function toggleDaily(aid) {
+    const now = Date.now();
+    if (now - lastToggleRef.current < 400) return;
+    lastToggleRef.current = now;
     setState(s => toggleDailyActivity(s, iso, aid));
   }
   function toggleContactAct(cid, aid) {
+    const now = Date.now();
+    if (now - lastToggleRef.current < 400) return;
+    lastToggleRef.current = now;
     setState(s => toggleContactActivity(s, iso, cid, aid));
   }
   function commitNewContact() {
@@ -4025,6 +4032,7 @@ function App() {
           ]
         : s.contacts,
     }));
+    setTab('home');
   }
 
   function handleCalendarPick(d) {
