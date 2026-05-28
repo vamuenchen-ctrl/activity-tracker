@@ -2612,6 +2612,12 @@ function renameContact(state, id, name) {
     contacts: state.contacts.map(c => c.id === id ? { ...c, name: name.trim() } : c),
   };
 }
+function setContactNote(state, id, notes) {
+  return {
+    ...state,
+    contacts: state.contacts.map(c => c.id === id ? { ...c, notes } : c),
+  };
+}
 function deleteContact(state, id) {
   const days = {};
   for (const [iso, day] of Object.entries(state.days)) {
@@ -2642,7 +2648,7 @@ Object.assign(window, {
   formatDateLong, formatDateShort, formatMonth,
   loadState, saveState, DEFAULT_STATE,
   getDay, dayPoints, contactPointsOnDay, dayGoal, weekPoints, monthPoints,
-  toggleDailyActivity, toggleContactActivity, addContact, renameContact, deleteContact, anonymizeContacts,
+  toggleDailyActivity, toggleContactActivity, addContact, renameContact, setContactNote, deleteContact, anonymizeContacts,
   setDailyGoalForDay,
 });
 
@@ -3422,6 +3428,7 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
         selected={(day.contactActivities && day.contactActivities[openContact]) || []}
         onToggle={(aid) => toggleContactAct(openContact, aid)}
         onRename={(name) => setState(s => renameContact(s, openContact, name))}
+        onNoteChange={(notes) => setState(s => setContactNote(s, openContact, notes))}
         onDelete={() => { setState(s => deleteContact(s, openContact)); setOpenContact(null); }}
         readonly={isFuture}
       />
@@ -3430,13 +3437,19 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
 }
 
 /* ───── Contact sheet — marks activities for one contact on the selected day ───── */
-function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, onDelete, readonly }) {
+function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, onNoteChange, onDelete, readonly }) {
   const [editName, setEditName] = useStateHome(false);
   const [tmpName, setTmpName] = useStateHome('');
+  const [noteText, setNoteText] = useStateHome('');
   const [confirmDelete, setConfirmDelete] = useStateHome(false);
 
   useEffectHome(() => {
-    if (open && contact) { setTmpName(contact.name); setEditName(false); setConfirmDelete(false); }
+    if (open && contact) {
+      setTmpName(contact.name);
+      setNoteText(contact.notes || '');
+      setEditName(false);
+      setConfirmDelete(false);
+    }
   }, [open, contact?.id]);
 
   if (!contact) return <Sheet open={false} onClose={onClose} />;
@@ -3525,7 +3538,27 @@ function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, on
         </div>
       ))}
 
-      <div style={{ marginTop: 18, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
+      <div style={{ marginTop: 18 }}>
+        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--fg-3)', marginBottom: 6 }}>Notiz</div>
+        <textarea
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
+          onBlur={() => onNoteChange(noteText)}
+          placeholder="Persönliche Notiz zu diesem Kontakt …"
+          disabled={readonly}
+          rows={3}
+          style={{
+            width: '100%', resize: 'none',
+            fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.5,
+            color: 'var(--fg-1)', background: 'var(--bg-subtle)',
+            border: '1px solid var(--border)', borderRadius: 10,
+            padding: '10px 12px', boxSizing: 'border-box',
+            outline: 'none',
+          }}
+        />
+      </div>
+
+      <div style={{ marginTop: 14, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
         {confirmDelete ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 13, color: 'var(--fg-2)', flex: 1 }}>Kontakt wirklich löschen?</span>
