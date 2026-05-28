@@ -1182,14 +1182,14 @@ input[type=range].r-range::-moz-range-thumb {
 
 /* New-contact input row inline */
 .new-contact-form {
-  display: flex; gap: 8px; align-items: center;
+  display: flex; flex-direction: column; gap: 8px;
   background: #FFFFFF; border: 1.5px solid var(--app-primary);
-  border-radius: 14px; padding: 6px 6px 6px 16px;
+  border-radius: 14px; padding: 12px 16px;
   margin-top: 8px;
 }
 .new-contact-form input {
-  flex: 1; font-size: 14px; color: var(--fg-1);
-  padding: 10px 0;
+  width: 100%; font-size: 14px; color: var(--fg-1);
+  padding: 4px 0; box-sizing: border-box;
 }
 .new-contact-form input::placeholder { color: var(--fg-4); }
 .new-contact-form button {
@@ -1198,6 +1198,9 @@ input[type=range].r-range::-moz-range-thumb {
 }
 .new-contact-form .cancel {
   background: transparent; color: var(--fg-3); font-weight: 400;
+}
+.new-contact-form .form-buttons {
+  display: flex; gap: 8px; justify-content: flex-end;
 }
 
 /* Empty states */
@@ -3349,8 +3352,10 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
                     onKeyDown={(e) => { if (e.key === 'Enter') commitNewContact(); if (e.key === 'Escape') { setShowAdd(false); setNewName(''); } }}
                     maxLength={32}
                   />
-                  <button className="cancel" onClick={() => { setShowAdd(false); setNewName(''); }}>Abbrechen</button>
-                  <button onClick={commitNewContact}>Hinzufügen</button>
+                  <div className="form-buttons">
+                    <button className="cancel" onClick={() => { setShowAdd(false); setNewName(''); }}>Abbrechen</button>
+                    <button onClick={commitNewContact}>Hinzufügen</button>
+                  </div>
                 </div>
               ) : (
                 <button className="add-contact-btn" onClick={() => setShowAdd(true)} disabled={isFuture}>
