@@ -2671,11 +2671,16 @@ function _lucideToSvgHtml(name, stroke, size) {
   const key = name + '|' + stroke + '|' + size;
   if (_iconSvgCache[key]) return _iconSvgCache[key];
   try {
-    if (typeof window.lucide?.createElement === 'function' && window.lucide.icons?.[name]) {
-      const svg = window.lucide.createElement(window.lucide.icons[name], {
-        'stroke-width': stroke, width: size, height: size,
-      });
-      return (_iconSvgCache[key] = svg.outerHTML);
+    if (typeof window.lucide?.createElement === 'function') {
+      // Lucide UMD exports icons in PascalCase; convert kebab-case name
+      const pascal = name.replace(/(^\w|-\w)/g, m => m.replace('-', '').toUpperCase());
+      const iconDef = window.lucide[pascal] || (window.lucide.icons && (window.lucide.icons[pascal] || window.lucide.icons[name]));
+      if (iconDef) {
+        const svg = window.lucide.createElement(iconDef, {
+          'stroke-width': stroke, width: size, height: size,
+        });
+        return (_iconSvgCache[key] = svg.outerHTML);
+      }
     }
   } catch (e) {}
   return '';
@@ -3717,7 +3722,7 @@ function CalendarScreen({ state, currentDate, setCurrentDate, onDayPicked, onOpe
               if (over) cls += ' over';
               if (isPast && pts === 0) cls += ' past-zero';
 
-              const interactive = inMonth && !tooEarly && !isFut;
+              const interactive = inMonth && !tooEarly;
               return (
                 <button
                   key={i}
