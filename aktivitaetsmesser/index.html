@@ -2642,40 +2642,29 @@ Object.assign(window, {
 const { useEffect, useRef, useState, useLayoutEffect } = React;
 
 /* ───── Icon (Lucide via global) ───── */
-// Uses a <span> container whose SVG children are managed outside React's
-// reconciler. This prevents lucide.createIcons() from replacing React-owned
-// DOM nodes and causing "removeChild: node is not a child" crashes.
+// Renders a <span> with dangerouslySetInnerHTML so React never owns the SVG
+// child nodes — eliminating the "removeChild: not a child" crash that used to
+// happen when lucide.createIcons() replaced React-managed <i> nodes with <svg>.
+const _iconSvgCache = {};
+function _lucideToSvgHtml(name, stroke, size) {
+  const key = name + '|' + stroke + '|' + size;
+  if (_iconSvgCache[key]) return _iconSvgCache[key];
+  try {
+    if (typeof window.lucide?.createElement === 'function' && window.lucide.icons?.[name]) {
+      const svg = window.lucide.createElement(window.lucide.icons[name], {
+        'stroke-width': stroke, width: size, height: size,
+      });
+      return (_iconSvgCache[key] = svg.outerHTML);
+    }
+  } catch (e) {}
+  return '';
+}
 function Icon({ name, size = 18, stroke = 1.6, style }) {
-  const ref = useRef(null);
-  useLayoutEffect(() => {
-    if (!ref.current || !window.lucide) return;
-    try {
-      if (typeof window.lucide.createElement === 'function' && window.lucide.icons?.[name]) {
-        const svg = window.lucide.createElement(window.lucide.icons[name], {
-          'stroke-width': stroke, width: size, height: size,
-        });
-        ref.current.innerHTML = '';
-        ref.current.appendChild(svg);
-      } else {
-        // Fallback: temporary detached container so createIcons() only touches
-        // our element, not React-managed <i> nodes elsewhere in the document.
-        const tmp = document.createElement('div');
-        const el = document.createElement('i');
-        el.setAttribute('data-lucide', name);
-        tmp.appendChild(el);
-        document.body.appendChild(tmp);
-        window.lucide.createIcons({ icons: window.lucide.icons, attrs: { 'stroke-width': stroke } });
-        document.body.removeChild(tmp);
-        if (tmp.firstChild?.tagName?.toLowerCase() === 'svg') {
-          ref.current.innerHTML = tmp.firstChild.outerHTML;
-        }
-      }
-    } catch (e) {}
-  }, [name, stroke, size]);
+  const html = _lucideToSvgHtml(name, stroke, size);
   return (
     <span
-      ref={ref}
       style={{ width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, ...style }}
+      dangerouslySetInnerHTML={{ __html: html }}
     />
   );
 }
@@ -4165,7 +4154,32 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+class AppErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { err: null }; }
+  static getDerivedStateFromError(err) { return { err }; }
+  render() {
+    const { err } = this.state;
+    if (err) {
+      return React.createElement('div', {
+        style: { padding: 24, fontFamily: 'monospace', fontSize: 13, color: '#a00', background: '#fff', height: '100%', overflowY: 'auto' }
+      },
+        React.createElement('b', null, 'App-Fehler (bitte Screenshot schicken):'),
+        React.createElement('pre', { style: { whiteSpace: 'pre-wrap', wordBreak: 'break-all', marginTop: 8 } },
+          String(err) + '\n\n' + (err.stack || '')
+        ),
+        React.createElement('button', {
+          onClick: () => this.setState({ err: null }),
+          style: { marginTop: 12, padding: '8px 16px', cursor: 'pointer' }
+        }, 'Erneut versuchen')
+      );
+    }
+    return this.props.children;
+  }
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  React.createElement(AppErrorBoundary, null, React.createElement(App))
+);
 
 </script>
 </body>
