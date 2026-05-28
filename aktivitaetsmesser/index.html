@@ -4028,13 +4028,7 @@ function App() {
     setStateRaw(s => ({
       ...s,
       user: { ...s.user, name, dailyGoalDefault, onboarded: true },
-      contacts: s.contacts.length === 0
-        ? [
-            { id: 'seed1', name: 'Anna',   createdAt: isoDay(new Date()) },
-            { id: 'seed2', name: 'Lisa',   createdAt: isoDay(new Date()) },
-            { id: 'seed3', name: 'Sophie', createdAt: isoDay(new Date()) },
-          ]
-        : s.contacts,
+      contacts: s.contacts,
     }));
     setTab('home');
   }
