@@ -2612,6 +2612,18 @@ function renameContact(state, id, name) {
     contacts: state.contacts.map(c => c.id === id ? { ...c, name: name.trim() } : c),
   };
 }
+function deleteContact(state, id) {
+  const days = {};
+  for (const [iso, day] of Object.entries(state.days)) {
+    if (day.contactActivities?.[id]) {
+      const { [id]: _removed, ...rest } = day.contactActivities;
+      days[iso] = { ...day, contactActivities: rest };
+    } else {
+      days[iso] = day;
+    }
+  }
+  return { ...state, contacts: state.contacts.filter(c => c.id !== id), days };
+}
 function anonymizeContacts(state) {
   return {
     ...state,
@@ -2630,7 +2642,7 @@ Object.assign(window, {
   formatDateLong, formatDateShort, formatMonth,
   loadState, saveState, DEFAULT_STATE,
   getDay, dayPoints, contactPointsOnDay, dayGoal, weekPoints, monthPoints,
-  toggleDailyActivity, toggleContactActivity, addContact, renameContact, anonymizeContacts,
+  toggleDailyActivity, toggleContactActivity, addContact, renameContact, deleteContact, anonymizeContacts,
   setDailyGoalForDay,
 });
 
@@ -3410,6 +3422,7 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
         selected={(day.contactActivities && day.contactActivities[openContact]) || []}
         onToggle={(aid) => toggleContactAct(openContact, aid)}
         onRename={(name) => setState(s => renameContact(s, openContact, name))}
+        onDelete={() => { setState(s => deleteContact(s, openContact)); setOpenContact(null); }}
         readonly={isFuture}
       />
     </>
@@ -3417,12 +3430,13 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
 }
 
 /* ───── Contact sheet — marks activities for one contact on the selected day ───── */
-function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, readonly }) {
+function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, onDelete, readonly }) {
   const [editName, setEditName] = useStateHome(false);
   const [tmpName, setTmpName] = useStateHome('');
+  const [confirmDelete, setConfirmDelete] = useStateHome(false);
 
   useEffectHome(() => {
-    if (open && contact) { setTmpName(contact.name); setEditName(false); }
+    if (open && contact) { setTmpName(contact.name); setEditName(false); setConfirmDelete(false); }
   }, [open, contact?.id]);
 
   if (!contact) return <Sheet open={false} onClose={onClose} />;
@@ -3511,7 +3525,29 @@ function ContactSheet({ contact, open, onClose, selected, onToggle, onRename, re
         </div>
       ))}
 
-      <div style={{ height: 8 }}></div>
+      <div style={{ marginTop: 18, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
+        {confirmDelete ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 13, color: 'var(--fg-2)', flex: 1 }}>Kontakt wirklich löschen?</span>
+            <button
+              onClick={() => setConfirmDelete(false)}
+              style={{ fontSize: 13, color: 'var(--fg-3)', padding: '6px 12px', borderRadius: 8, background: 'var(--bg-subtle)' }}
+            >Abbrechen</button>
+            <button
+              onClick={onDelete}
+              style={{ fontSize: 13, color: '#fff', padding: '6px 12px', borderRadius: 8, background: 'var(--cat-umsatz)', fontWeight: 500 }}
+            >Löschen</button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setConfirmDelete(true)}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--fg-3)', padding: '6px 0' }}
+          >
+            <Icon name="trash-2" size={14} style={{ color: 'var(--fg-3)' }} />
+            Kontakt löschen
+          </button>
+        )}
+      </div>
     </Sheet>
   );
 }
