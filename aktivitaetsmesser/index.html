@@ -2642,21 +2642,41 @@ Object.assign(window, {
 const { useEffect, useRef, useState, useLayoutEffect } = React;
 
 /* ───── Icon (Lucide via global) ───── */
+// Uses a <span> container whose SVG children are managed outside React's
+// reconciler. This prevents lucide.createIcons() from replacing React-owned
+// DOM nodes and causing "removeChild: node is not a child" crashes.
 function Icon({ name, size = 18, stroke = 1.6, style }) {
   const ref = useRef(null);
-  useEffect(() => {
-    if (window.lucide && ref.current) {
-      // Re-create just this node
-      ref.current.setAttribute('data-lucide', name);
-      try { window.lucide.createIcons({ icons: window.lucide.icons, attrs: { 'stroke-width': stroke } }); } catch (e) {}
-    }
-  }, [name, stroke]);
+  useLayoutEffect(() => {
+    if (!ref.current || !window.lucide) return;
+    try {
+      if (typeof window.lucide.createElement === 'function' && window.lucide.icons?.[name]) {
+        const svg = window.lucide.createElement(window.lucide.icons[name], {
+          'stroke-width': stroke, width: size, height: size,
+        });
+        ref.current.innerHTML = '';
+        ref.current.appendChild(svg);
+      } else {
+        // Fallback: temporary detached container so createIcons() only touches
+        // our element, not React-managed <i> nodes elsewhere in the document.
+        const tmp = document.createElement('div');
+        const el = document.createElement('i');
+        el.setAttribute('data-lucide', name);
+        tmp.appendChild(el);
+        document.body.appendChild(tmp);
+        window.lucide.createIcons({ icons: window.lucide.icons, attrs: { 'stroke-width': stroke } });
+        document.body.removeChild(tmp);
+        if (tmp.firstChild?.tagName?.toLowerCase() === 'svg') {
+          ref.current.innerHTML = tmp.firstChild.outerHTML;
+        }
+      }
+    } catch (e) {}
+  }, [name, stroke, size]);
   return (
-    <i
+    <span
       ref={ref}
-      data-lucide={name}
-      style={{ width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', strokeWidth: stroke, ...style }}
-    ></i>
+      style={{ width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, ...style }}
+    />
   );
 }
 
@@ -4010,11 +4030,6 @@ function App() {
     saveState(state);
   }, [state]);
 
-  useEffectApp2(() => {
-    if (window.lucide) {
-      try { window.lucide.createIcons(); } catch (e) {}
-    }
-  });
 
   function setState(next) {
     setStateRaw(typeof next === 'function' ? next : () => next);
