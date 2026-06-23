@@ -659,7 +659,7 @@ input { outline: none; }
   background: var(--bg-subtle);
   border-radius: 12px;
   padding: 9px 12px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   transition: box-shadow var(--dur-base) var(--ease-out);
 }
 .contact-search:focus-within {
@@ -2521,6 +2521,15 @@ function loadState() {
 function saveState(s) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
 }
+function parseImportedState(raw) {
+  let data;
+  try { data = JSON.parse(raw); } catch (e) { return null; }
+  if (!data || typeof data !== 'object') return null;
+  if (!Array.isArray(data.contacts)) return null;
+  if (!data.days || typeof data.days !== 'object') return null;
+  if (!data.user || typeof data.user !== 'object') return null;
+  return { ...DEFAULT_STATE, ...data };
+}
 
 /* ─────────────────────────────────────────────────────────────
    Day model helpers
@@ -2649,7 +2658,7 @@ Object.assign(window, {
   MIN_DATE, MAX_DATE, isoDay, parseIso, addDays, startOfWeek, startOfMonth, endOfMonth, sameDay,
   DE_WEEKDAYS_LONG, DE_WEEKDAYS_SHORT, DE_MONTHS,
   formatDateLong, formatDateShort, formatMonth,
-  loadState, saveState, DEFAULT_STATE,
+  loadState, saveState, parseImportedState, DEFAULT_STATE,
   getDay, dayPoints, contactPointsOnDay, dayGoal, weekPoints, monthPoints,
   toggleDailyActivity, toggleContactActivity, addContact, renameContact, setContactNote, deleteContact, anonymizeContacts,
   setDailyGoalForDay,
@@ -3297,6 +3306,27 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
 
           {!collapsed.kontakt && (
             <div style={{ marginTop: 12 }}>
+              {showAdd ? (
+                <div className="new-contact-form">
+                  <input
+                    type="text" placeholder="Vorname oder Spitzname"
+                    value={newName} onChange={(e) => setNewName(e.target.value)}
+                    autoFocus
+                    onKeyDown={(e) => { if (e.key === 'Enter') commitNewContact(); if (e.key === 'Escape') { setShowAdd(false); setNewName(''); } }}
+                    maxLength={32}
+                  />
+                  <div className="form-buttons">
+                    <button className="cancel" onClick={() => { setShowAdd(false); setNewName(''); }}>Abbrechen</button>
+                    <button onClick={commitNewContact}>Hinzufügen</button>
+                  </div>
+                </div>
+              ) : (
+                <button className="add-contact-btn" onClick={() => setShowAdd(true)} disabled={isFuture}>
+                  <Icon name="plus" size={16} />
+                  Kontakt hinzufügen
+                </button>
+              )}
+
               {state.contacts.length > 0 && (
                 <div className="contact-search">
                   <Icon name="search" size={14} style={{ color: 'var(--fg-3)' }} />
@@ -3347,27 +3377,6 @@ function HomeScreen({ state, setState, currentDate, setCurrentDate, onOpenInfo, 
                   />
                 ));
               })()}
-
-              {showAdd ? (
-                <div className="new-contact-form">
-                  <input
-                    type="text" placeholder="Vorname oder Spitzname"
-                    value={newName} onChange={(e) => setNewName(e.target.value)}
-                    autoFocus
-                    onKeyDown={(e) => { if (e.key === 'Enter') commitNewContact(); if (e.key === 'Escape') { setShowAdd(false); setNewName(''); } }}
-                    maxLength={32}
-                  />
-                  <div className="form-buttons">
-                    <button className="cancel" onClick={() => { setShowAdd(false); setNewName(''); }}>Abbrechen</button>
-                    <button onClick={commitNewContact}>Hinzufügen</button>
-                  </div>
-                </div>
-              ) : (
-                <button className="add-contact-btn" onClick={() => setShowAdd(true)} disabled={isFuture}>
-                  <Icon name="plus" size={16} />
-                  Kontakt hinzufügen
-                </button>
-              )}
             </div>
           )}
         </section>
@@ -3834,6 +3843,9 @@ function SettingsScreen({ state, setState, currentDate, setCurrentDate, onOpenIn
   const [confirmAnonFinal, setConfirmAnonFinal] = useStateSet(false);
   const [confirmReset, setConfirmReset] = useStateSet(false);
   const [justAnon, setJustAnon] = useStateSet(false);
+  const [pendingImport, setPendingImport] = useStateSet(null);
+  const [importError, setImportError] = useStateSet(null);
+  const [justExported, setJustExported] = useStateSet(false);
 
   const iso = isoDay(currentDate);
   const todayGoal = dayGoal(state, iso);
@@ -3858,6 +3870,41 @@ function SettingsScreen({ state, setState, currentDate, setCurrentDate, onOpenIn
   function cancelAnon() {
     setConfirmAnon(false);
     setConfirmAnonFinal(false);
+  }
+  function exportData() {
+    const json = JSON.stringify(state, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `aktivitaetsmesser-backup-${isoDay(new Date())}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setJustExported(true);
+    setTimeout(() => setJustExported(false), 2800);
+  }
+  function handleImportFile(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    setImportError(null);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const parsed = parseImportedState(reader.result);
+      if (!parsed) {
+        setImportError('Diese Datei konnte nicht gelesen werden. Bitte ein gültiges Aktivitätsmesser-Backup wählen.');
+        return;
+      }
+      setPendingImport(parsed);
+    };
+    reader.onerror = () => setImportError('Datei konnte nicht gelesen werden.');
+    reader.readAsText(file);
+  }
+  function applyImport() {
+    if (pendingImport) setState(pendingImport);
+    setPendingImport(null);
   }
   function applyReset() {
     setState(JSON.parse(JSON.stringify(DEFAULT_STATE)));
@@ -3977,6 +4024,81 @@ function SettingsScreen({ state, setState, currentDate, setCurrentDate, onOpenIn
             </div>
           </div>
 
+          {/* Backup: export / import */}
+          <div className="settings-group">
+            <div className="sg-title">Daten sichern</div>
+            <div className="settings-card">
+              <div className="settings-row" style={{ alignItems: 'flex-start' }}>
+                <span className="icon" style={{ marginTop: 2 }}><Icon name="download" size={18} /></span>
+                <div className="body">
+                  <div className="label">Daten exportieren</div>
+                  <div className="sub" style={{ marginBottom: 10 }}>
+                    Speichert Profil, alle Kontakte und sämtliche erfassten Aktivitäten als Backup-Datei.
+                  </div>
+                  {justExported ? (
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      fontSize: 12, color: 'var(--app-primary)', fontWeight: 500,
+                      background: 'var(--app-primary-tint)',
+                      padding: '4px 10px', borderRadius: 999,
+                    }}>
+                      <Icon name="check" size={12} stroke={2.5} />
+                      Heruntergeladen
+                    </span>
+                  ) : (
+                    <button
+                      onClick={exportData}
+                      style={{
+                        background: 'var(--bg-subtle)',
+                        color: 'var(--fg-1)',
+                        border: '1px solid var(--border-strong)',
+                        borderRadius: 10,
+                        padding: '8px 14px',
+                        fontSize: 13,
+                        fontWeight: 500,
+                      }}
+                    >
+                      Backup herunterladen
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="settings-row" style={{ alignItems: 'flex-start' }}>
+                <span className="icon" style={{ marginTop: 2 }}><Icon name="upload" size={18} /></span>
+                <div className="body">
+                  <div className="label">Daten importieren</div>
+                  <div className="sub" style={{ marginBottom: 10 }}>
+                    Stellt ein zuvor exportiertes Backup wieder her. Überschreibt alle aktuellen Daten auf diesem Gerät.
+                  </div>
+                  <label
+                    style={{
+                      display: 'inline-block',
+                      background: 'var(--bg-subtle)',
+                      color: 'var(--fg-1)',
+                      border: '1px solid var(--border-strong)',
+                      borderRadius: 10,
+                      padding: '8px 14px',
+                      fontSize: 13,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Backup-Datei wählen
+                    <input
+                      type="file"
+                      accept="application/json"
+                      onChange={handleImportFile}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                  {importError && (
+                    <div style={{ color: 'var(--cat-umsatz)', fontSize: 12, marginTop: 8 }}>{importError}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* About */}
           <div className="settings-group">
             <div className="sg-title">Über</div>
@@ -4061,6 +4183,25 @@ function SettingsScreen({ state, setState, currentDate, setCurrentDate, onOpenIn
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => setConfirmReset(false)}>Abbrechen</button>
           <button className="btn btn-primary" style={{ flex: 1, background: 'var(--cat-umsatz)' }} onClick={applyReset}>Zurücksetzen</button>
+        </div>
+      </Sheet>
+
+      {/* Import confirm sheet */}
+      <Sheet
+        open={!!pendingImport}
+        onClose={() => setPendingImport(null)}
+        title="Backup wiederherstellen?"
+        sub="Aktuelle Daten werden überschrieben."
+      >
+        <p style={{ fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6, margin: '0 0 16px' }}>
+          {pendingImport && (
+            <>Das Backup enthält <b>{pendingImport.contacts.length}</b> {pendingImport.contacts.length === 1 ? 'Kontakt' : 'Kontakte'} und Einträge für <b>{Object.keys(pendingImport.days).length}</b> {Object.keys(pendingImport.days).length === 1 ? 'Tag' : 'Tage'}. </>
+          )}
+          Alle aktuellen Daten auf diesem Gerät werden dadurch ersetzt. <b>Dieser Schritt kann nicht rückgängig gemacht werden.</b>
+        </p>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => setPendingImport(null)}>Abbrechen</button>
+          <button className="btn btn-primary" style={{ flex: 1 }} onClick={applyImport}>Wiederherstellen</button>
         </div>
       </Sheet>
     </>
